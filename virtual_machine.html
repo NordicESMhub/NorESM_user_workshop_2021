@@ -208,14 +208,20 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="on-the-virtual-machine">
 <h1>On the Virtual Machine<a class="headerlink" href="#on-the-virtual-machine" title="Permalink to this headline">¶</a></h1>
-<p>Login with the <strong>private SSH key</strong> corresponding to the public key that you provided the Organizers of this Workshop:</p>
+<p>Login on your own Virtual Machine with the <strong>private SSH key</strong> corresponding to the public key that you provided the Organizers of this Workshop (it does not grant you access to any other Virtual Machine anyway):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">i</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">YourPrivateSSHkey</span> <span class="n">ubuntu</span><span class="o">@</span><span class="mf">158.39.48</span><span class="o">.</span><span class="n">xxx</span>
 </pre></div>
 </div>
-<p>Each VM features 16 VCPUs + 64GB RAM + 80GB root disk, and already comes with Singularity</p>
+<p>Each Virtual Machine features 16 VCPUs + 64GB RAM + 80GB root disk, and comes with:</p>
+<ul class="simple">
+<li><p>an Operating System (OS) with the default C/C++/FORTRAN compilers</p></li>
+<li><p>a Message Passing Interface (MPI) library, required for the hands-on exercise on “outside-in” interaction with the container (but not for “inside-out”)</p></li>
+<li><p>Singularity</p></li>
+</ul>
+<p>already installed, nothing else</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Replace <em><a class="reference external" href="http://158.39.48.xxx">158.39.48.xxx</a></em> by the IP address that you have been allocated (although you all have the same user name on these Virtual Machines)</p>
+<p>Replace <em><a class="reference external" href="http://158.39.48.xxx">158.39.48.xxx</a></em> by the IP address that you have been allocated (please check your email and let us know if you have not got it), and all use same user name (<em>ubuntu</em>)</p>
 </div>
 </div>
 

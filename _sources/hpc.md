@@ -1,8 +1,9 @@
 # On Betzy
 
-Login on Betzy and proceed like on the Virtual Machine but use **/cluster/work/users/$USER** (which is equivalent to **\$USERWORK**) instead of **/home/ubuntu** for staging and job data:
+Login on Betzy with your usual Sigma2 *username* (i.e., you are not *ubuntu* any more), and proceed like on the Virtual Machine but use **/cluster/work/users/$USER** (which is equivalent to **\$USERWORK**) instead of **/home/ubuntu** for staging and job data:
 
 ```
+ssh -i ~/.ssh/YourPrivateSSHkey YourSigma2UserName@betzy.sigma2.no
 cd $USERWORK
 mkdir -p work archive
 ```
