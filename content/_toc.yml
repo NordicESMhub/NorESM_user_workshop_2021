@@ -6,5 +6,5 @@ root: intro
 sections:
 - file: content
   sections:
-  - file: markdown
-  - file: notebooks
+  - file: virtual_machine
+  - file: hpc
