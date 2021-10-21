@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to your Jupyter Book &#8212; NorESM User Workshop 2021</title>
+    <title>Running NorESM in a container &#8212; NorESM User Workshop 2021</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Content in Jupyter Book" href="content.html" />
+    <link rel="next" title="Objectives of this training" href="content.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -88,14 +88,14 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1 current">
   <a class="reference internal" href="#">
-   Welcome to your Jupyter Book
+   Running NorESM in a container
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="content.html">
-   Content in Jupyter Book
+   Objectives of this training
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -104,13 +104,13 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="markdown.html">
-     Markdown Files
+    <a class="reference internal" href="virtual_machine.html">
+     On the Virtual Machine
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="notebooks.html">
-     Content with notebooks
+    <a class="reference internal" href="hpc.html">
+     On Betzy
     </a>
    </li>
   </ul>
@@ -197,6 +197,37 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-container">
+   What is a container?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#docker-img-src-https-www-docker-com-sites-default-files-d8-styles-role-icon-public-2019-07-docker-logo-white-rgb-vertical-bg-0-png-itok-8tuac9i3-height-40">
+   Docker
+   <img height="40" src="https://www.docker.com/sites/default/files/d8/styles/role_icon/public/2019-07/Docker-Logo-White-RGB_Vertical-BG_0.png?itok=8Tuac9I3"/>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#docker-for-everything-img-src-https-w7-pngwing-com-pngs-636-195-png-transparent-warning-sign-traffic-sign-hazard-warning-signs-text-logo-copyright-thumbnail-png-height-40">
+   Docker for everything?
+   <img height="40" src="https://w7.pngwing.com/pngs/636/195/png-transparent-warning-sign-traffic-sign-hazard-warning-signs-text-logo-copyright-thumbnail.png"/>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#singularity-img-src-https-sylabs-io-assets-svg-singularity-logo-svg-height-40">
+   Singularity
+   <img height="40" src="https://sylabs.io/assets/svg/singularity-logo.svg"/>
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -205,19 +236,59 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="welcome-to-your-jupyter-book">
-<h1>Welcome to your Jupyter Book<a class="headerlink" href="#welcome-to-your-jupyter-book" title="Permalink to this headline">¶</a></h1>
-<p>This is a small sample book to give you a feel for how book content is
-structured.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="running-noresm-in-a-container">
+<h1>Running NorESM in a container<a class="headerlink" href="#running-noresm-in-a-container" title="Permalink to this headline">¶</a></h1>
+<p><img alt="" src="_images/paul-teysen-bukjsECgmeU-unsplash.jpg" /></p>
+<div class="section" id="what-is-a-container">
+<h2>What is a container?<a class="headerlink" href="#what-is-a-container" title="Permalink to this headline">¶</a></h2>
+<p>A <strong>container</strong> is a unit of software that bundles a code and all its dependencies so that an application can run quickly in various computing environments</p>
+<p>A container <strong>image</strong> is a standalone, executable package of software which includes everything needed to run an application: source code, compilers, libraries, etc.</p>
+<p>Images <em>become</em> containers <strong>at runtime</strong> when they run on a container engine (like Docker, Singularity, etc.)</p>
+<p><em>(From <a class="reference external" href="https://www.docker.com/resources/what-container">https://www.docker.com/resources/what-container</a>)</em></p>
+</div>
+<div class="section" id="docker-img-src-https-www-docker-com-sites-default-files-d8-styles-role-icon-public-2019-07-docker-logo-white-rgb-vertical-bg-0-png-itok-8tuac9i3-height-40">
+<h2>Docker <img src="https://www.docker.com/sites/default/files/d8/styles/role_icon/public/2019-07/Docker-Logo-White-RGB_Vertical-BG_0.png?itok=8Tuac9I3" height="40"><a class="headerlink" href="#docker-img-src-https-www-docker-com-sites-default-files-d8-styles-role-icon-public-2019-07-docker-logo-white-rgb-vertical-bg-0-png-itok-8tuac9i3-height-40" title="Permalink to this headline">¶</a></h2>
+<p>Docker is probably the most popular platform for creating and distributing container images</p>
+<p>It is very easy to install (especially on Linux machines) and well documented</p>
+<img src="https://www.docker.com/sites/default/files/d8/styles/large/public/2018-11/container-what-is-container.png?itok=vle7kjDj" height="300">
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Here is a note!</p>
+<p>Containers isolate applications from their environment</p>
 </div>
-<p>And here is a code block:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">e</span> <span class="o">=</span> <span class="n">mc</span><span class="o">^</span><span class="mi">2</span>
-</pre></div>
 </div>
-<p>Check out the content pages bundled with this sample book to see more.</p>
+<div class="section" id="docker-for-everything-img-src-https-w7-pngwing-com-pngs-636-195-png-transparent-warning-sign-traffic-sign-hazard-warning-signs-text-logo-copyright-thumbnail-png-height-40">
+<h2>Docker for everything? <img src="https://w7.pngwing.com/pngs/636/195/png-transparent-warning-sign-traffic-sign-hazard-warning-signs-text-logo-copyright-thumbnail.png" height="40"><a class="headerlink" href="#docker-for-everything-img-src-https-w7-pngwing-com-pngs-636-195-png-transparent-warning-sign-traffic-sign-hazard-warning-signs-text-logo-copyright-thumbnail-png-height-40" title="Permalink to this headline">¶</a></h2>
+<p>Docker works well for local or <strong>private</strong> resources, and</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> it is great to <strong>develop</strong> and <strong>share</strong> (<a class="reference external" href="https://hub.docker.com">Docker-hub</a>)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Docker images are built layer by layer from a <em>recipe</em> called Dockerfile, and should something fail in a particular layer, one can just fix it and resume the build from where it stopped</p></li>
+</ul>
+<p>however, Docker is</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> not suitable for <strong>multi-user</strong> environments like High Performance Computers (HPC) because processes within the Docker container are executed with root privileges</p></li>
+</ul>
+<p>and therefore no <em>sensible</em> <strong>HPC</strong> centers will allow it</p>
+</div>
+<div class="section" id="singularity-img-src-https-sylabs-io-assets-svg-singularity-logo-svg-height-40">
+<h2>Singularity <img src="https://sylabs.io/assets/svg/singularity-logo.svg" height="40"><a class="headerlink" href="#singularity-img-src-https-sylabs-io-assets-svg-singularity-logo-svg-height-40" title="Permalink to this headline">¶</a></h2>
+<p>Compared to Docker, Singularity exhibits several features which make it more suitable for use on HPC, and in particular:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> there is <strong>no privilege</strong> escalation inside Singularity containers (user outside == user inside)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> it does not requires any system changes for <strong>HPC</strong></p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> it provides a simple integration with <strong>resource managers</strong> (like Slurm)</p></li>
+</ul>
+<p>Also, from the user point-of view:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Singularity uses a single-file based container format (<strong>SIF™</strong> = Singularity Image File)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> it supports multiple <strong>architectures</strong> (x86-64, PPC, <img src="https://www.arm.com/-/media/global/logos/Arm-logo-reverse-white.svg?h=175&w=300&hash=F5A828FC9C66575A911DF0B5CB3D04B4E8E5DC50&hash=F5A828FC9C66575A911DF0B5CB3D04B4E8E5DC50" height="25">)</p></li>
+</ul>
+<p>however</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> building container images from a Singularity definition file (.def) is tedious (although the content is <em>similar</em> to that of a Dockerfile)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> it is possible to convert a Docker image into Singularity</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> the size of a Singularity Image File is significantly smaller than the <em>equivalent</em> Docker image archive</p></li>
+</ul>
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -255,7 +326,7 @@ structured.</p>
         <a class="right-next" href="content.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Content in Jupyter Book</p>
+                <p class="prevnext-title">Objectives of this training</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

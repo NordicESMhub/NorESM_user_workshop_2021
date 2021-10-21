@@ -1,5 +1,11 @@
-Content in Jupyter Book
-=======================
+Objectives of this training
+===========================
 
-There are many ways to write content in Jupyter Book. This short section
-covers a few tips for how to do so.
+Learn how to use a Singularity container to setup and run NorESM (release 2.0.5) on different platforms:
+
+
+* a Virtual Machine with **Intel® Haswell** Processors (@ Norwegian Research & Education Cloud)
+
+* a High Performance Computer with **AMD® Rome** Processors (Betzy @ Sigma2)
+
+![Two different ways to interact with a container](/Inside-outside.png)
