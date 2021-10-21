@@ -1,6 +1,6 @@
 # NorESM User Workshop 2021
 
-Tutorial for running NorESM with containers for the annual NorESM user workshop 2021
+Tutorial on "Running NorESM in a container" at the annual NorESM user workshop 2021
 
 ## Usage
 
