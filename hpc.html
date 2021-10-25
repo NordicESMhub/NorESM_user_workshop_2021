@@ -198,29 +198,6 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#day-run-with-16-tasks-hands-on-exercise">
-   1-day run with 16 tasks (hands-on exercise)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#month-run-with-128-tasks-hands-on-exercise">
-   1-month run with 128 tasks (hands-on exercise)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#years-run-with-8x128-tasks-for-information-only">
-   25-years run with 8x128 tasks (for information only)
-  </a>
- </li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -232,9 +209,9 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="on-betzy">
 <h1>On Betzy<a class="headerlink" href="#on-betzy" title="Permalink to this headline">¶</a></h1>
 <p>Login on Betzy with your usual Sigma2 <em>username</em> (i.e., you are not <em>ubuntu</em> any more), and proceed like on the Virtual Machine but use <strong>/cluster/work/users/$USER</strong> (which is equivalent to <strong>$USERWORK</strong>) instead of <strong>/home/ubuntu</strong> for staging and job data:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ssh -i ~/.ssh/YourPrivateSSHkey YourSigma2UserName@betzy.sigma2.no
-cd $USERWORK
-mkdir work archive
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh -i ~/.ssh/YourPrivateSSHkey YourSigma2UserName@betzy.sigma2.no
+$ cd $USERWORK
+$ mkdir work archive
 </pre></div>
 </div>
 <div class="admonition note">
@@ -242,26 +219,32 @@ mkdir work archive
 <p>All the necessary inputdata being already available on <strong>/cluster/shared/noresm/inputdata</strong> there is no need to download the Zenodo tarball when you are on Betzy (or Fram)</p>
 </div>
 <p>Pull the same container as on the Virtual Machine and extract this time the Slurm batch job script <strong>job_hpc.sh</strong></p>
-<p>We are going to use <strong>srun</strong> for automatically distributing the processes to precisely the resources allocated to the job</p>
-<div class="section" id="day-run-with-16-tasks-hands-on-exercise">
-<h2>1-day run with 16 tasks (hands-on exercise)<a class="headerlink" href="#day-run-with-16-tasks-hands-on-exercise" title="Permalink to this headline">¶</a></h2>
-<p>The existing script can be used to submit the Slurm job which runs NorESM for 1 day on 1x node and 16x CPUs:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sbatch</span> <span class="n">job_hpc</span><span class="o">.</span><span class="n">sh</span>
+<p>On many systems it is common to use an alternative launcher to start parallel applications, for instance Slurm’s <strong>srun</strong> rather than the <strong>mpirun</strong> <em>wrapper</em> provided by a particular MPI installation (as we did on the Virtual Machine for the “outside-in” exercise)</p>
+<p>This approach is supported with Singularity as long as the MPI version installed in the container supports the same Process Management Interface (PMI) and version as that used by the launcher (which is the case with our container)</p>
+<p>In the frame of this workshop we are therefore going to use <strong>srun</strong> for automatically distributing the processes to precisely the resources allocated to the job, without loading any module with MPI</p>
+<div class="exercise admonition" id="1Day-Betzy">
+<p class="admonition-title"><span class="caption-number">Exercise 8 </span></p>
+<div class="section" id="exercise-content">
+<p>Using the existing script <em>as it is</em> submit the Slurm job which runs NorESM for <strong>1 day</strong> on <strong>1x node</strong> and <strong>16x CPUs</strong>, then monitor the run and once the simulation has finished check the timing profile</p>
+</div>
+</div><div class="solution dropdown admonition" id="hpc-solution-1">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#1Day-Betzy"><span>Solution to </span> Exercise 8</a></p>
+<div class="section" id="solution-content">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sbatch job_hpc.sh
 </pre></div>
 </div>
-<p>Now check the timing profile</p>
-<div class="admonition note">
+</div>
+</div><div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Short simulations do not necessarily provide the most representative performance figures</p>
+<p>Short simulations do not necessarily provide the most representative performance figures therefore, for the purpose of benchmarking, longer simulations are normally performed (typically 1 month or more)</p>
 </div>
+<div class="exercise admonition" id="1Month-Betzy">
+<p class="admonition-title"><span class="caption-number">Exercise 9 </span></p>
+<div class="section" id="exercise-content">
+<p>Edit the script to set <strong>nodes=8</strong> and <strong>tasks-per-node=128</strong>, delete the line with <strong>- - qos</strong> (in order to use the <em>normal</em> queue) and replace ‘ndays’ by <strong>‘nmonths’</strong>, then resubmit the job to get a more precise estimate of the model throughput</p>
 </div>
-<div class="section" id="month-run-with-128-tasks-hands-on-exercise">
-<h2>1-month run with 128 tasks (hands-on exercise)<a class="headerlink" href="#month-run-with-128-tasks-hands-on-exercise" title="Permalink to this headline">¶</a></h2>
-<p>Edit the script to set nodes=8 and tasks-per-node= 128, delete the line with - - qos (in order to use the <em>normal</em> queue) and replace ‘ndays’ by ‘nmonths’, then resubmit the job to get a more precise estimate of the model throughput</p>
-</div>
-<div class="section" id="years-run-with-8x128-tasks-for-information-only">
-<h2>25-years run with 8x128 tasks (for information only)<a class="headerlink" href="#years-run-with-8x128-tasks-for-information-only" title="Permalink to this headline">¶</a></h2>
-<p><strong>Do not do it now</strong>: the same simulation extended to 25 years provides very similar numbers (the job take about 18 hours)</p>
+</div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 
