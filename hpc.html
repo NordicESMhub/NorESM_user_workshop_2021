@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
@@ -197,6 +198,29 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#day-run-with-16-tasks-hands-on-exercise">
+   1-day run with 16 tasks (hands-on exercise)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#month-run-with-128-tasks-hands-on-exercise">
+   1-month run with 128 tasks (hands-on exercise)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#years-run-with-8x128-tasks-for-information-only">
+   25-years run with 8x128 tasks (for information only)
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -210,7 +234,7 @@
 <p>Login on Betzy with your usual Sigma2 <em>username</em> (i.e., you are not <em>ubuntu</em> any more), and proceed like on the Virtual Machine but use <strong>/cluster/work/users/$USER</strong> (which is equivalent to <strong>$USERWORK</strong>) instead of <strong>/home/ubuntu</strong> for staging and job data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ssh -i ~/.ssh/YourPrivateSSHkey YourSigma2UserName@betzy.sigma2.no
 cd $USERWORK
-mkdir -p work archive
+mkdir work archive
 </pre></div>
 </div>
 <div class="admonition note">
@@ -218,6 +242,27 @@ mkdir -p work archive
 <p>All the necessary inputdata being already available on <strong>/cluster/shared/noresm/inputdata</strong> there is no need to download the Zenodo tarball when you are on Betzy (or Fram)</p>
 </div>
 <p>Pull the same container as on the Virtual Machine and extract this time the Slurm batch job script <strong>job_hpc.sh</strong></p>
+<p>We are going to use <strong>srun</strong> for automatically distributing the processes to precisely the resources allocated to the job</p>
+<div class="section" id="day-run-with-16-tasks-hands-on-exercise">
+<h2>1-day run with 16 tasks (hands-on exercise)<a class="headerlink" href="#day-run-with-16-tasks-hands-on-exercise" title="Permalink to this headline">¶</a></h2>
+<p>The existing script can be used to submit the Slurm job which runs NorESM for 1 day on 1x node and 16x CPUs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sbatch</span> <span class="n">job_hpc</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>Now check the timing profile</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Short simulations do not necessarily provide the most representative performance figures</p>
+</div>
+</div>
+<div class="section" id="month-run-with-128-tasks-hands-on-exercise">
+<h2>1-month run with 128 tasks (hands-on exercise)<a class="headerlink" href="#month-run-with-128-tasks-hands-on-exercise" title="Permalink to this headline">¶</a></h2>
+<p>Edit the script to set nodes=8 and tasks-per-node= 128, delete the line with - - qos (in order to use the <em>normal</em> queue) and replace ‘ndays’ by ‘nmonths’, then resubmit the job to get a more precise estimate of the model throughput</p>
+</div>
+<div class="section" id="years-run-with-8x128-tasks-for-information-only">
+<h2>25-years run with 8x128 tasks (for information only)<a class="headerlink" href="#years-run-with-8x128-tasks-for-information-only" title="Permalink to this headline">¶</a></h2>
+<p><strong>Do not do it now</strong>: the same simulation extended to 25 years provides very similar numbers (the job take about 18 hours)</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">

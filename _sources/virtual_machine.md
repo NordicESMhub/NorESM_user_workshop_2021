@@ -1,9 +1,11 @@
 # On the Virtual Machine
 
+## From "inside-out"
+
 Login on your own Virtual Machine with the **private SSH key** corresponding to the public key that you provided the Organizers of this Workshop (it does not grant you access to any other Virtual Machine anyway):
 
 ```
-ssh -i ~/.ssh/YourPrivateSSHkey ubuntu@158.39.48.xxx
+$ ssh -i ~/.ssh/YourPrivateSSHkey ubuntu@158.39.48.xxx
 ```
 
 Each Virtual Machine features 16 VCPUs + 64GB RAM + 80GB root disk, and comes with:
@@ -15,5 +17,247 @@ Each Virtual Machine features 16 VCPUs + 64GB RAM + 80GB root disk, and comes wi
 already installed, nothing else
 
 :::{note}
-Replace *158.39.48.xxx* by the IP address that you have been allocated (please check your email and let us know if you have not got it), and all use same user name (*ubuntu*)
+Replace *158.39.48.xxx* by the IP address that you have been allocated (please check your email and let us know if you have not got it), and all use the same user name (*ubuntu*)
+
+The **"$"** character at the begining of each line is meant to represent the Bash shell prompt whilst the remainder of the line is the command itself
 :::
+
+### Basic verifications
+
+Verify that a container engine is available on the host and what your *username* is
+
+
+```{exercise} 
+:label: Version
+Check which version of **Singularity** is installed on your Virtual Machine
+```
+
+````{solution} Version
+:class: dropdown
+```{code-block} bash
+$ singularity --version
+
+singularity version 3.8.3
+```
+````
+
+```{exercise}
+:label: User
+Check your user name on the Virtual Machine
+```
+
+````{solution} User
+:class: dropdown
+```{code-block} bash
+$ whoami
+
+ubuntu
+```
+````
+
+### Preparation of the necessary folders and input data
+
+Create the work and archive folders in your **$HOME** directory
+
+```
+$ cd $HOME
+$ mkdir work archive 
+```
+
+Get the inputdata from <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4683483.svg" height="25">
+
+```
+$ wget https://zenodo.org/record/4683483/files/inputdata_NF2000climo_f19_f19_mg17.tar.gz
+```
+
+Extract (or untar) all the files from the archive
+
+```
+$ tar zxvf inputdata_NF2000climo_f19_f19_mg17.tar.gz
+```
+
+This will add the inputdata folder on **$HOME** and will be much faster than downloading individual files on-the-fly, hence saving us a lot of time. 
+
+### Pull the container image and execute it
+
+Get the NorESM container
+
+```
+$ wget ...NorESM_user_workshop_2021.sif
+```
+
+Type the following command to start a Singularity container and run an interactive shell within it
+
+```{code-block}
+$ singularity shell --contain NorESM_user_workshop_2021.sif
+```
+```{exercise} 
+:label: Contain
+Once inside the container explore, navigate through the folders, try to create new files and/or directories, what happens?
+```
+````{solution} Contain
+:class: dropdown
+```{code-block} bash
+$ pwd
+$ ls -lrt /opt/esm
+$ touch text.txt
+```
+
+You should be able to create new files and new folders inside the container, without any error or warning, however these files and folders will not exist outside
+
+This is because the **\- \- contain**  flag will use minimal **/dev** and empty other directories (e.g., **/tmp**) instead of sharing filesystems from your host
+
+Without this flag, by default, the **home** directory, the **current working directory**, but also some system folders (**/tmp**, **/proc**, **/sys** and **/dev**) are automatically included inside each container: these are in fact those from the host (and any alteration done from inside the container, voluntarily or not, will be permanent, therefore be very cautious)
+````
+
+### Run the container with bindings
+
+To be able to share files and folders between the container and the host, explicit binding paths have to be specified in the format **src:dest**, where **src** and **dest** are paths outside and inside of the container, respectively
+
+Shared **work** and **archive** directories will allow us to access model outputs from the host, even after the container ceased to exist. Also the shared **inputdata** which was created and populated from the host can be made accessible inside the container
+
+```
+$ singularity shell --bind $HOME/work:/opt/esm/work,$HOME/inputdata:/opt/esm/inputdata,$HOME/archive:/opt/esm/archive NorESM_user_workshop_2021.sif
+```
+
+This means for instance that the content of the directory known as **$HOME/archive** on the host can be accessed on **/opt/esm/archive** inside the container, and *vice versa*
+
+:::{note}
+Inside the container the Bash shell prompt (**Singularity>**) is different from that on the host (**ubuntu@noresm:**)
+:::
+
+### Create a new simulation, set it up, compile and run it inside the container
+
+The source code for NorESM (release 2.0.5) can be found inside the container in **/opt/esm/my_sandbox**
+
+A machine named **"virtual"** has already been configured with the correct compilers, libraries and paths inside the container
+
+```{exercise} 
+:label: Test-case
+- **Create a new case** called **"test"** in the **/opt/esm/archive/cases** directory with the **NF2000climo** compset and **f19_f19_mg17** resolution
+- Modify (with the **xmlchange** tool) the necessary environment variables to only run the simulation for **1 day**
+- Change the number of **tasks** so that all the processors available on the Virtual Machine (single node) are used for all the model components (instead of *'NTASKS_ATM': -2*, etc.)
+- Then perform the **setup**, **compile** and **run** the simulation
+```
+
+````{solution} Test-case
+:class: dropdown
+```{code-block} bash
+
+$ cd /opt/esm/my_sandbox/cime/scripts/
+
+$ ./create_newcase --case /opt/esm/archive/cases/test --compset NF2000climo --res f19_f19_mg17 --machine virtual --run-unsupported
+
+$ cd /opt/esm/archive/cases/test
+
+$ ./xmlchange STOP_N=1
+$ ./xmlchange STOP_OPTION=ndays
+$ ./xmlchange --file env_mach_pes.xml --id NTASKS --val -1
+
+$ ./case.setup
+
+$ ./case.build
+
+$ ./case.submit
+
+```
+````
+
+If everything went well the run will start
+
+![](/ModelExecutionBegins.png)
+
+:::{note}
+**nohup** is a POSIX command which means "no hang up", its purpose is to execute a command such that it ignores the HUP (hangup) signal and therefore does not stop when the user logs out (From [https://en.wikipedia.org/wiki/Nohup](https://en.wikipedia.org/wiki/Nohup))
+
+Then you *can* type:
+
+- **Ctrl+Z** to stop (pause) the program and get back to the shell
+- **bg** to run it in the background
+:::
+
+### Monitor your run
+
+To monitor your job you can open a 2<sup>nd</sup> terminal and login like on the 1<sup>st</sup> one, then type the following command
+```{code-block} bash
+$ htop
+```
+
+![](/htop.png)
+
+On the upper part of the window is displayed information about the CPU and memory usage, and in the bottom part is a table listing the various processes which are running on the Virtual Machine, and in this instance the 16 *cesm.exe* tasks, their process ID, etc.
+
+```{exercise} 
+:label: Simulation-progress
+Check the simulation progress in the *workdir*
+```
+````{solution} Simulation-progress
+:class: dropdown
+New output files and log files are created as the model runs, so check for example their size and/or content to get an idea about what is going on during the simulation
+
+Notice how, at the begining of the run, only **finidat_interp_dest.nc** and the **lnd.log** file grow in size as the LAND component is initialized (and interpolations are being performed) 
+```{code-block} bash
+$ ls -lrt /home/ubuntu/work/test/run
+```
+![](/Workdir.png)
+
+Verify which time steps the CAM component has completed:
+```{code-block} bash
+$ tail /home/ubuntu/work/test/run/atm.log*
+```
+![](/AtmLog.png)
+
+(there are 48 time steps per 24h simulation)
+
+````
+
+### Run time, cost and model throughput
+
+After the end of the simulation it is possible to obtain general information about the total run time and cost as well as several metrics to facilitate analysis and comparisons with other runs
+
+```{exercise} 
+:label: Timing-test
+Have a look at the timing profile located in the case directory
+```
+````{solution} Timing-test
+:class: dropdown
+```{code-block} bash
+$ vi /home/ubuntu/archive/cases/test/timing/cesm_timing.*
+```
+![](/TimingTest.png)
+````
+
+## From "outside-in"
+
+Let’s now do the same simulation in a more automated way using the bash script called **"job_vm.sh"** which comes in the container (and can be extracted from **/opt/esm**)
+
+```{code-block} bash
+$ cd /home/ubuntu
+
+$ singularity exec NorESM_user_workshop_2021.sif cp /opt/esm/job_vm.sh .
+```
+
+For the sake of convenience this bash script follows the same structure as the Slurm job batch script which will be used on Betzy
+
+This will export several environmental variables (number of nodes, CPUs, etc.), then create the new case, do the setup, compile, run the simulation and generate the timing profile
+
+Submit the job on the Virtual Machine by typing the following command:
+
+```{code-block} bash
+$ bash job_vm.sh
+```
+This time we use the sequence **mpirun singularity ... esm.exe** (instead of **singularity mpirun ... esm.exe**)
+
+```{exercise} 
+:label: Timing-VM
+Monitor this run, and at the end compare the timing profile to the one obtained "inside-out"
+```
+````{solution} Timing-VM
+:class: dropdown
+```{code-block} bash
+$ vi /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19.999999-999999
+```
+![](/Timing-VM.png)
+
+Notice the similitude of the performance when running “inside-out” (mpirun used inside the container) and “outside-in” (mpirun invoked from outside the container): on a single node machine it virtually makes no difference to the run time and model throughput
+````

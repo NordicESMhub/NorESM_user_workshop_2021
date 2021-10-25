@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
@@ -198,6 +199,61 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#from-inside-out">
+   From “inside-out”
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#basic-verifications">
+     Basic verifications
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#preparation-of-the-necessary-folders-and-input-data">
+     Preparation of the necessary folders and input data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pull-the-container-image-and-execute-it">
+     Pull the container image and execute it
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#run-the-container-with-bindings">
+     Run the container with bindings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-a-new-simulation-set-it-up-compile-and-run-it-inside-the-container">
+     Create a new simulation, set it up, compile and run it inside the container
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#monitor-your-run">
+     Monitor your run
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#run-time-cost-and-model-throughput">
+     Run time, cost and model throughput
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#from-outside-in">
+   From “outside-in”
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -208,8 +264,10 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="on-the-virtual-machine">
 <h1>On the Virtual Machine<a class="headerlink" href="#on-the-virtual-machine" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="from-inside-out">
+<h2>From “inside-out”<a class="headerlink" href="#from-inside-out" title="Permalink to this headline">¶</a></h2>
 <p>Login on your own Virtual Machine with the <strong>private SSH key</strong> corresponding to the public key that you provided the Organizers of this Workshop (it does not grant you access to any other Virtual Machine anyway):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">i</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">YourPrivateSSHkey</span> <span class="n">ubuntu</span><span class="o">@</span><span class="mf">158.39.48</span><span class="o">.</span><span class="n">xxx</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh -i ~/.ssh/YourPrivateSSHkey ubuntu@158.39.48.xxx
 </pre></div>
 </div>
 <p>Each Virtual Machine features 16 VCPUs + 64GB RAM + 80GB root disk, and comes with:</p>
@@ -221,8 +279,224 @@
 <p>already installed, nothing else</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Replace <em><a class="reference external" href="http://158.39.48.xxx">158.39.48.xxx</a></em> by the IP address that you have been allocated (please check your email and let us know if you have not got it), and all use same user name (<em>ubuntu</em>)</p>
+<p>Replace <em><a class="reference external" href="http://158.39.48.xxx">158.39.48.xxx</a></em> by the IP address that you have been allocated (please check your email and let us know if you have not got it), and all use the same user name (<em>ubuntu</em>)</p>
+<p>The <strong>“$”</strong> character at the begining of each line is meant to represent the Bash shell prompt whilst the remainder of the line is the command itself</p>
 </div>
+<div class="section" id="basic-verifications">
+<h3>Basic verifications<a class="headerlink" href="#basic-verifications" title="Permalink to this headline">¶</a></h3>
+<p>Verify that a container engine is available on the host and what your <em>username</em> is</p>
+<div class="exercise admonition" id="Version">
+<p class="admonition-title"><span class="caption-number">Exercise 1 </span></p>
+<div class="section" id="exercise-content">
+<p>Check which version of <strong>Singularity</strong> is installed on your Virtual Machine</p>
+</div>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-1">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Version"><span>Solution to </span> Exercise 1</a></p>
+<div class="section" id="solution-content">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ singularity --version
+
+singularity version <span class="m">3</span>.8.3
+</pre></div>
+</div>
+</div>
+</div><div class="exercise admonition" id="User">
+<p class="admonition-title"><span class="caption-number">Exercise 2 </span></p>
+<div class="section" id="exercise-content">
+<p>Check your user name on the Virtual Machine</p>
+</div>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-3">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#User"><span>Solution to </span> Exercise 2</a></p>
+<div class="section" id="solution-content">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ whoami
+
+ubuntu
+</pre></div>
+</div>
+</div>
+</div></div>
+<div class="section" id="preparation-of-the-necessary-folders-and-input-data">
+<h3>Preparation of the necessary folders and input data<a class="headerlink" href="#preparation-of-the-necessary-folders-and-input-data" title="Permalink to this headline">¶</a></h3>
+<p>Create the work and archive folders in your <strong>$HOME</strong> directory</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd $HOME
+$ mkdir work archive 
+</pre></div>
+</div>
+<p>Get the inputdata from <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4683483.svg" height="25"></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget https://zenodo.org/record/4683483/files/inputdata_NF2000climo_f19_f19_mg17.tar.gz
+</pre></div>
+</div>
+<p>Extract (or untar) all the files from the archive</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tar zxvf inputdata_NF2000climo_f19_f19_mg17.tar.gz
+</pre></div>
+</div>
+<p>This will add the inputdata folder on <strong>$HOME</strong> and will be much faster than downloading individual files on-the-fly, hence saving us a lot of time.</p>
+</div>
+<div class="section" id="pull-the-container-image-and-execute-it">
+<h3>Pull the container image and execute it<a class="headerlink" href="#pull-the-container-image-and-execute-it" title="Permalink to this headline">¶</a></h3>
+<p>Get the NorESM container</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget ...NorESM_user_workshop_2021.sif
+</pre></div>
+</div>
+<p>Type the following command to start a Singularity container and run an interactive shell within it</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ singularity shell --contain NorESM_user_workshop_2021.sif
+</pre></div>
+</div>
+<div class="exercise admonition" id="Contain">
+<p class="admonition-title"><span class="caption-number">Exercise 3 </span></p>
+<div class="section" id="exercise-content">
+<p>Once inside the container explore, navigate through the folders, try to create new files and/or directories, what happens?</p>
+</div>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-5">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Contain"><span>Solution to </span> Exercise 3</a></p>
+<div class="section" id="solution-content">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">pwd</span>
+$ ls -lrt /opt/esm
+$ touch text.txt
+</pre></div>
+</div>
+<p>You should be able to create new files and new folders inside the container, without any error or warning, however these files and folders will not exist outside</p>
+<p>This is because the <strong>- - contain</strong>  flag will use minimal <strong>/dev</strong> and empty other directories (e.g., <strong>/tmp</strong>) instead of sharing filesystems from your host</p>
+<p>Without this flag, by default, the <strong>home</strong> directory, the <strong>current working directory</strong>, but also some system folders (<strong>/tmp</strong>, <strong>/proc</strong>, <strong>/sys</strong> and <strong>/dev</strong>) are automatically included inside each container: these are in fact those from the host (and any alteration done from inside the container, voluntarily or not, will be permanent, therefore be very cautious)</p>
+</div>
+</div></div>
+<div class="section" id="run-the-container-with-bindings">
+<h3>Run the container with bindings<a class="headerlink" href="#run-the-container-with-bindings" title="Permalink to this headline">¶</a></h3>
+<p>To be able to share files and folders between the container and the host, explicit binding paths have to be specified in the format <strong>src:dest</strong>, where <strong>src</strong> and <strong>dest</strong> are paths outside and inside of the container, respectively</p>
+<p>Shared <strong>work</strong> and <strong>archive</strong> directories will allow us to access model outputs from the host, even after the container ceased to exist. Also the shared <strong>inputdata</strong> which was created and populated from the host can be made accessible inside the container</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ singularity shell --bind $HOME/work:/opt/esm/work,$HOME/inputdata:/opt/esm/inputdata,$HOME/archive:/opt/esm/archive NorESM_user_workshop_2021.sif
+</pre></div>
+</div>
+<p>This means for instance that the content of the directory known as <strong>$HOME/archive</strong> on the host can be accessed on <strong>/opt/esm/archive</strong> inside the container, and <em>vice versa</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Inside the container the Bash shell prompt (<strong>Singularity&gt;</strong>) is different from that on the host (<strong>ubuntu&#64;noresm:</strong>)</p>
+</div>
+</div>
+<div class="section" id="create-a-new-simulation-set-it-up-compile-and-run-it-inside-the-container">
+<h3>Create a new simulation, set it up, compile and run it inside the container<a class="headerlink" href="#create-a-new-simulation-set-it-up-compile-and-run-it-inside-the-container" title="Permalink to this headline">¶</a></h3>
+<p>The source code for NorESM (release 2.0.5) can be found inside the container in <strong>/opt/esm/my_sandbox</strong></p>
+<p>A machine named <strong>“virtual”</strong> has already been configured with the correct compilers, libraries and paths inside the container</p>
+<div class="exercise admonition" id="Test-case">
+<p class="admonition-title"><span class="caption-number">Exercise 4 </span></p>
+<div class="section" id="exercise-content">
+<ul class="simple">
+<li><p><strong>Create a new case</strong> called <strong>“test”</strong> in the <strong>/opt/esm/archive/cases</strong> directory with the <strong>NF2000climo</strong> compset and <strong>f19_f19_mg17</strong> resolution</p></li>
+<li><p>Modify (with the <strong>xmlchange</strong> tool) the necessary environment variables to only run the simulation for <strong>1 day</strong></p></li>
+<li><p>Change the number of <strong>tasks</strong> so that all the processors available on the Virtual Machine (single node) are used for all the model components (instead of <em>‘NTASKS_ATM’: -2</em>, etc.)</p></li>
+<li><p>Then perform the <strong>setup</strong>, <strong>compile</strong> and <strong>run</strong> the simulation</p></li>
+</ul>
+</div>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-7">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Test-case"><span>Solution to </span> Exercise 4</a></p>
+<div class="section" id="solution-content">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /opt/esm/my_sandbox/cime/scripts/
+
+$ ./create_newcase --case /opt/esm/archive/cases/test --compset NF2000climo --res f19_f19_mg17 --machine virtual --run-unsupported
+
+$ <span class="nb">cd</span> /opt/esm/archive/cases/test
+
+$ ./xmlchange <span class="nv">STOP_N</span><span class="o">=</span><span class="m">1</span>
+$ ./xmlchange <span class="nv">STOP_OPTION</span><span class="o">=</span>ndays
+$ ./xmlchange --file env_mach_pes.xml --id NTASKS --val -1
+
+$ ./case.setup
+
+$ ./case.build
+
+$ ./case.submit
+</pre></div>
+</div>
+</div>
+</div><p>If everything went well the run will start</p>
+<p><img alt="" src="_images/ModelExecutionBegins.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>nohup</strong> is a POSIX command which means “no hang up”, its purpose is to execute a command such that it ignores the HUP (hangup) signal and therefore does not stop when the user logs out (From <a class="reference external" href="https://en.wikipedia.org/wiki/Nohup">https://en.wikipedia.org/wiki/Nohup</a>)</p>
+<p>Then you <em>can</em> type:</p>
+<ul class="simple">
+<li><p><strong>Ctrl+Z</strong> to stop (pause) the program and get back to the shell</p></li>
+<li><p><strong>bg</strong> to run it in the background</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="monitor-your-run">
+<h3>Monitor your run<a class="headerlink" href="#monitor-your-run" title="Permalink to this headline">¶</a></h3>
+<p>To monitor your job you can open a 2<sup>nd</sup> terminal and login like on the 1<sup>st</sup> one, then type the following command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ htop
+</pre></div>
+</div>
+<p><img alt="" src="_images/htop.png" /></p>
+<p>On the upper part of the window is displayed information about the CPU and memory usage, and in the bottom part is a table listing the various processes which are running on the Virtual Machine, and in this instance the 16 <em>cesm.exe</em> tasks, their process ID, etc.</p>
+<div class="exercise admonition" id="Simulation-progress">
+<p class="admonition-title"><span class="caption-number">Exercise 5 </span></p>
+<div class="section" id="exercise-content">
+<p>Check the simulation progress in the <em>workdir</em></p>
+</div>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-9">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Simulation-progress"><span>Solution to </span> Exercise 5</a></p>
+<div class="section" id="solution-content">
+<p>New output files and log files are created as the model runs, so check for example their size and/or content to get an idea about what is going on during the simulation</p>
+<p>Notice how, at the begining of the run, only <strong>finidat_interp_dest.nc</strong> and the <strong>lnd.log</strong> file grow in size as the LAND component is initialized (and interpolations are being performed)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ls -lrt /home/ubuntu/work/test/run
+</pre></div>
+</div>
+<p><img alt="" src="_images/Workdir.png" /></p>
+<p>Verify which time steps the CAM component has completed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tail /home/ubuntu/work/test/run/atm.log*
+</pre></div>
+</div>
+<p><img alt="" src="_images/AtmLog.png" /></p>
+<p>(there are 48 time steps per 24h simulation)</p>
+</div>
+</div></div>
+<div class="section" id="run-time-cost-and-model-throughput">
+<h3>Run time, cost and model throughput<a class="headerlink" href="#run-time-cost-and-model-throughput" title="Permalink to this headline">¶</a></h3>
+<p>After the end of the simulation it is possible to obtain general information about the total run time and cost as well as several metrics to facilitate analysis and comparisons with other runs</p>
+<div class="exercise admonition" id="Timing-test">
+<p class="admonition-title"><span class="caption-number">Exercise 6 </span></p>
+<div class="section" id="exercise-content">
+<p>Have a look at the timing profile located in the case directory</p>
+</div>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-11">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Timing-test"><span>Solution to </span> Exercise 6</a></p>
+<div class="section" id="solution-content">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ vi /home/ubuntu/archive/cases/test/timing/cesm_timing.*
+</pre></div>
+</div>
+<p><img alt="" src="_images/TimingTest.png" /></p>
+</div>
+</div></div>
+</div>
+<div class="section" id="from-outside-in">
+<h2>From “outside-in”<a class="headerlink" href="#from-outside-in" title="Permalink to this headline">¶</a></h2>
+<p>Let’s now do the same simulation in a more automated way using the bash script called <strong>“job_vm.sh”</strong> which comes in the container (and can be extracted from <strong>/opt/esm</strong>)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /home/ubuntu
+
+$ singularity <span class="nb">exec</span> NorESM_user_workshop_2021.sif cp /opt/esm/job_vm.sh .
+</pre></div>
+</div>
+<p>For the sake of convenience this bash script follows the same structure as the Slurm job batch script which will be used on Betzy</p>
+<p>This will export several environmental variables (number of nodes, CPUs, etc.), then create the new case, do the setup, compile, run the simulation and generate the timing profile</p>
+<p>Submit the job on the Virtual Machine by typing the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bash job_vm.sh
+</pre></div>
+</div>
+<p>This time we use the sequence <strong>mpirun singularity … esm.exe</strong> (instead of <strong>singularity mpirun … esm.exe</strong>)</p>
+<div class="exercise admonition" id="Timing-VM">
+<p class="admonition-title"><span class="caption-number">Exercise 7 </span></p>
+<div class="section" id="exercise-content">
+<p>Monitor this run, and at the end compare the timing profile to the one obtained “inside-out”</p>
+</div>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-13">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Timing-VM"><span>Solution to </span> Exercise 7</a></p>
+<div class="section" id="solution-content">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ vi /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19.999999-999999
+</pre></div>
+</div>
+<p><img alt="" src="_images/Timing-VM.png" /></p>
+<p>Notice the similitude of the performance when running “inside-out” (mpirun used inside the container) and “outside-in” (mpirun invoked from outside the container): on a single node machine it virtually makes no difference to the run time and model throughput</p>
+</div>
+</div></div>
 </div>
 
     <script type="text/x-thebe-config">
