@@ -267,7 +267,7 @@
 <div class="section" id="from-inside-out">
 <h2>From “inside-out”<a class="headerlink" href="#from-inside-out" title="Permalink to this headline">¶</a></h2>
 <p>Login on your own Virtual Machine with the <strong>private SSH key</strong> corresponding to the public key that you provided the Organizers of this Workshop (it does not grant you access to any other Virtual Machine anyway):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh -i ~/.ssh/YourPrivateSSHkey ubuntu@158.39.48.xxx
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh -i ~/.ssh/YourPrivateSSHkey ubuntu@aaa.bb.cc.ddd
 </pre></div>
 </div>
 <p>Each Virtual Machine features 16 VCPUs + 64GB RAM + 80GB root disk, and comes with:</p>
@@ -279,19 +279,33 @@
 <p>already installed, nothing else</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Replace <em><a class="reference external" href="http://158.39.48.xxx">158.39.48.xxx</a></em> by the IP address that you have been allocated (please check your email and let us know if you have not got it), and all use the same user name (<em>ubuntu</em>)</p>
+<p>Use the <em>actual path</em> to where your SSH keys are stored on your laptop (instead of <em>~/.ssh/</em>), replace <em>&#64;aaa.bb.cc.ddd</em> by the IP address that you have been allocated, and all use the same user name (<em>ubuntu</em>)</p>
 <p>The <strong>“$”</strong> character at the begining of each line is meant to represent the Bash shell prompt whilst the remainder of the line is the command itself</p>
 </div>
-<div class="section" id="basic-verifications">
-<h3>Basic verifications<a class="headerlink" href="#basic-verifications" title="Permalink to this headline">¶</a></h3>
-<p>Verify that a container engine is available on the host and what your <em>username</em> is</p>
-<div class="exercise admonition" id="Version">
+<div class="exercise admonition" id="Login">
 <p class="admonition-title"><span class="caption-number">Exercise 1 </span></p>
+<div class="section" id="exercise-content">
+<p>Try to login on your Virtual Machine and let the organizers of the workshop know if that does not work</p>
+</div>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-1">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Login"><span>Solution to </span> Exercise 1</a></p>
+<div class="section" id="solution-content">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Key		Adresse
+Yanchun 	<span class="m">158</span>.39.75.200
+Alfatih 	<span class="m">158</span>.39.75.205
+</pre></div>
+</div>
+</div>
+</div><div class="section" id="basic-verifications">
+<h3>Basic verifications<a class="headerlink" href="#basic-verifications" title="Permalink to this headline">¶</a></h3>
+<p>Verify that a container engine is available on the host</p>
+<div class="exercise admonition" id="Version">
+<p class="admonition-title"><span class="caption-number">Exercise 2 </span></p>
 <div class="section" id="exercise-content">
 <p>Check which version of <strong>Singularity</strong> is installed on your Virtual Machine</p>
 </div>
-</div><div class="solution dropdown admonition" id="virtual_machine-solution-1">
-<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Version"><span>Solution to </span> Exercise 1</a></p>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-3">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Version"><span>Solution to </span> Exercise 2</a></p>
 <div class="section" id="solution-content">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ singularity --version
 
@@ -299,17 +313,20 @@ singularity version <span class="m">3</span>.8.3
 </pre></div>
 </div>
 </div>
-</div><div class="exercise admonition" id="User">
-<p class="admonition-title"><span class="caption-number">Exercise 2 </span></p>
+</div><div class="exercise admonition" id="CPU">
+<p class="admonition-title"><span class="caption-number">Exercise 3 </span></p>
 <div class="section" id="exercise-content">
-<p>Check your user name on the Virtual Machine</p>
+<p>Check the architecture, model and number of processors available on the Virtual Machine</p>
 </div>
-</div><div class="solution dropdown admonition" id="virtual_machine-solution-3">
-<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#User"><span>Solution to </span> Exercise 2</a></p>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-5">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#CPU"><span>Solution to </span> Exercise 3</a></p>
 <div class="section" id="solution-content">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ whoami
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ lscpu
 
-ubuntu
+Architecture:                    x86_64
+CPU<span class="o">(</span>s<span class="o">)</span>:                          <span class="m">16</span>
+Model name:                      Intel Core Processor <span class="o">(</span>Haswell, no TSX<span class="o">)</span>
+CPU MHz:                         <span class="m">2294</span>.608
 </pre></div>
 </div>
 </div>
@@ -342,12 +359,12 @@ $ mkdir work archive
 </pre></div>
 </div>
 <div class="exercise admonition" id="Contain">
-<p class="admonition-title"><span class="caption-number">Exercise 3 </span></p>
+<p class="admonition-title"><span class="caption-number">Exercise 4 </span></p>
 <div class="section" id="exercise-content">
 <p>Once inside the container explore, navigate through the folders, try to create new files and/or directories, what happens?</p>
 </div>
-</div><div class="solution dropdown admonition" id="virtual_machine-solution-5">
-<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Contain"><span>Solution to </span> Exercise 3</a></p>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-7">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Contain"><span>Solution to </span> Exercise 4</a></p>
 <div class="section" id="solution-content">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">pwd</span>
 $ ls -lrt /opt/esm
@@ -369,7 +386,7 @@ $ touch text.txt
 <p>This means for instance that the content of the directory known as <strong>$HOME/archive</strong> on the host can be accessed on <strong>/opt/esm/archive</strong> inside the container, and <em>vice versa</em></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Inside the container the Bash shell prompt (<strong>Singularity&gt;</strong>) is different from that on the host (<strong>ubuntu&#64;noresm:</strong>)</p>
+<p>Inside the container the Bash shell prompt (<strong>Singularity&gt;</strong>) is different from that on the host (where, depending on the name that was given to your Virtual Machine when it was created, it will be something like <strong>ubuntu&#64;noresm:</strong> or <strong>ubuntu&#64;nuw_xxx:</strong>)</p>
 </div>
 </div>
 <div class="section" id="create-a-new-simulation-set-it-up-compile-and-run-it-inside-the-container">
@@ -377,7 +394,7 @@ $ touch text.txt
 <p>The source code for NorESM (release 2.0.5) can be found inside the container in <strong>/opt/esm/my_sandbox</strong></p>
 <p>A machine named <strong>“virtual”</strong> has already been configured with the correct compilers, libraries and paths inside the container</p>
 <div class="exercise admonition" id="Test-case">
-<p class="admonition-title"><span class="caption-number">Exercise 4 </span></p>
+<p class="admonition-title"><span class="caption-number">Exercise 5 </span></p>
 <div class="section" id="exercise-content">
 <ul class="simple">
 <li><p><strong>Create a new case</strong> called <strong>“test”</strong> in the <strong>/opt/esm/archive/cases</strong> directory with the <strong>NF2000climo</strong> compset and <strong>f19_f19_mg17</strong> resolution</p></li>
@@ -386,8 +403,8 @@ $ touch text.txt
 <li><p>Then perform the <strong>setup</strong>, <strong>compile</strong> and <strong>run</strong> the simulation</p></li>
 </ul>
 </div>
-</div><div class="solution dropdown admonition" id="virtual_machine-solution-7">
-<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Test-case"><span>Solution to </span> Exercise 4</a></p>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-9">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Test-case"><span>Solution to </span> Exercise 5</a></p>
 <div class="section" id="solution-content">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /opt/esm/my_sandbox/cime/scripts/
 
@@ -417,23 +434,24 @@ $ ./case.submit
 <li><p><strong>Ctrl+Z</strong> to stop (pause) the program and get back to the shell</p></li>
 <li><p><strong>bg</strong> to run it in the background</p></li>
 </ul>
+<p>You can then <em>if you wish</em> exit the container (with the <strong>exit</strong> command) and re-enter it with the same command that you have used to run it with bindings (singularity shell - - bind … workshop_2021.sif)</p>
 </div>
 </div>
 <div class="section" id="monitor-your-run">
 <h3>Monitor your run<a class="headerlink" href="#monitor-your-run" title="Permalink to this headline">¶</a></h3>
-<p>To monitor your job you can open a 2<sup>nd</sup> terminal and login like on the 1<sup>st</sup> one, then type the following command</p>
+<p>To monitor your job <em>from outside the container</em> you can open a 2<sup>nd</sup> terminal and login like on the 1<sup>st</sup> one, then type the following command</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ htop
 </pre></div>
 </div>
 <p><img alt="" src="_images/htop.png" /></p>
 <p>On the upper part of the window is displayed information about the CPU and memory usage, and in the bottom part is a table listing the various processes which are running on the Virtual Machine, and in this instance the 16 <em>cesm.exe</em> tasks, their process ID, etc.</p>
 <div class="exercise admonition" id="Simulation-progress">
-<p class="admonition-title"><span class="caption-number">Exercise 5 </span></p>
+<p class="admonition-title"><span class="caption-number">Exercise 6 </span></p>
 <div class="section" id="exercise-content">
 <p>Check the simulation progress in the <em>workdir</em></p>
 </div>
-</div><div class="solution dropdown admonition" id="virtual_machine-solution-9">
-<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Simulation-progress"><span>Solution to </span> Exercise 5</a></p>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-11">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Simulation-progress"><span>Solution to </span> Exercise 6</a></p>
 <div class="section" id="solution-content">
 <p>New output files and log files are created as the model runs, so check for example their size and/or content to get an idea about what is going on during the simulation</p>
 <p>Notice how, at the begining of the run, only <strong>finidat_interp_dest.nc</strong> and the <strong>lnd.log</strong> file grow in size as the LAND component is initialized (and interpolations are being performed)</p>
@@ -447,18 +465,23 @@ $ ./case.submit
 </div>
 <p><img alt="" src="_images/AtmLog.png" /></p>
 <p>(there are 48 time steps per 24h simulation)</p>
+<p>You can still use <em>from inside the container</em> the <strong>ps axu</strong> command to monitor the processes running on your Virtual Machine (and in particular those related to your ESM run):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ps axu <span class="p">|</span> grep esm
+</pre></div>
+</div>
+<p><img alt="" src="_images/PS.png" /></p>
 </div>
 </div></div>
 <div class="section" id="run-time-cost-and-model-throughput">
 <h3>Run time, cost and model throughput<a class="headerlink" href="#run-time-cost-and-model-throughput" title="Permalink to this headline">¶</a></h3>
 <p>After the end of the simulation it is possible to obtain general information about the total run time and cost as well as several metrics to facilitate analysis and comparisons with other runs</p>
 <div class="exercise admonition" id="Timing-test">
-<p class="admonition-title"><span class="caption-number">Exercise 6 </span></p>
+<p class="admonition-title"><span class="caption-number">Exercise 7 </span></p>
 <div class="section" id="exercise-content">
 <p>Have a look at the timing profile located in the case directory</p>
 </div>
-</div><div class="solution dropdown admonition" id="virtual_machine-solution-11">
-<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Timing-test"><span>Solution to </span> Exercise 6</a></p>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-13">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Timing-test"><span>Solution to </span> Exercise 7</a></p>
 <div class="section" id="solution-content">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ vi /home/ubuntu/archive/cases/test/timing/cesm_timing.*
 </pre></div>
@@ -483,18 +506,34 @@ $ singularity <span class="nb">exec</span> NorESM_user_workshop_2021.sif cp /opt
 </div>
 <p>This time we use the sequence <strong>mpirun singularity … esm.exe</strong> (instead of <strong>singularity mpirun … esm.exe</strong>)</p>
 <div class="exercise admonition" id="Timing-VM">
-<p class="admonition-title"><span class="caption-number">Exercise 7 </span></p>
+<p class="admonition-title"><span class="caption-number">Exercise 8 </span></p>
 <div class="section" id="exercise-content">
 <p>Monitor this run, and at the end compare the timing profile to the one obtained “inside-out”</p>
 </div>
-</div><div class="solution dropdown admonition" id="virtual_machine-solution-13">
-<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Timing-VM"><span>Solution to </span> Exercise 7</a></p>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-15">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Timing-VM"><span>Solution to </span> Exercise 8</a></p>
 <div class="section" id="solution-content">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ vi /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19.999999-999999
 </pre></div>
 </div>
 <p><img alt="" src="_images/Timing-VM.png" /></p>
 <p>Notice the similitude of the performance when running “inside-out” (mpirun used inside the container) and “outside-in” (mpirun invoked from outside the container): on a single node machine it virtually makes no difference to the run time and model throughput</p>
+</div>
+</div><div class="exercise admonition" id="Differences">
+<p class="admonition-title"><span class="caption-number">Exercise 9 </span></p>
+<div class="section" id="exercise-content">
+<p>Can you spot any difference between the outputs of the simulations performed from “inside-out” and “outside-in”, for instance by comparing the <strong>atm.log</strong>s?</p>
+</div>
+</div><div class="solution dropdown admonition" id="virtual_machine-solution-17">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Differences"><span>Solution to </span> Exercise 9</a></p>
+<div class="section" id="solution-content">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /home/ubuntu
+$ gunzip archive/test/logs/atm.log.*
+$ diff work/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_*/run/atm.log.* archive/test/logs/atm.log.*
+</pre></div>
+</div>
+<p><img alt="" src="_images/ATM-LOG.png" /></p>
+<p>Apart from expected differences in the case name and creation date/time they are absolutely identical</p>
 </div>
 </div></div>
 </div>

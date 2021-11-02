@@ -5,7 +5,7 @@
 Login on your own Virtual Machine with the **private SSH key** corresponding to the public key that you provided the Organizers of this Workshop (it does not grant you access to any other Virtual Machine anyway):
 
 ```
-$ ssh -i ~/.ssh/YourPrivateSSHkey ubuntu@158.39.48.xxx
+$ ssh -i ~/.ssh/YourPrivateSSHkey ubuntu@aaa.bb.cc.ddd
 ```
 
 Each Virtual Machine features 16 VCPUs + 64GB RAM + 80GB root disk, and comes with:
@@ -17,14 +17,31 @@ Each Virtual Machine features 16 VCPUs + 64GB RAM + 80GB root disk, and comes wi
 already installed, nothing else
 
 :::{note}
-Replace *158.39.48.xxx* by the IP address that you have been allocated (please check your email and let us know if you have not got it), and all use the same user name (*ubuntu*)
+Use the *actual path* to where your SSH keys are stored on your laptop (instead of *~/.ssh/*), replace *@aaa.bb.cc.ddd* by the IP address that you have been allocated, and all use the same user name (*ubuntu*)
 
 The **"$"** character at the begining of each line is meant to represent the Bash shell prompt whilst the remainder of the line is the command itself
 :::
 
+
+```{exercise} 
+:label: Login
+Try to login on your Virtual Machine and let the organizers of the workshop know if that does not work
+```
+
+````{solution} Login
+:class: dropdown
+```{code-block} bash
+Key		Adresse
+Yanchun 	158.39.75.200
+Alfatih 	158.39.75.205
+
+```
+````
+
+
 ### Basic verifications
 
-Verify that a container engine is available on the host and what your *username* is
+Verify that a container engine is available on the host
 
 
 ```{exercise} 
@@ -42,16 +59,19 @@ singularity version 3.8.3
 ````
 
 ```{exercise}
-:label: User
-Check your user name on the Virtual Machine
+:label: CPU
+Check the architecture, model and number of processors available on the Virtual Machine
 ```
 
-````{solution} User
+````{solution} CPU
 :class: dropdown
 ```{code-block} bash
-$ whoami
+$ lscpu
 
-ubuntu
+Architecture:                    x86_64
+CPU(s):                          16
+Model name:                      Intel Core Processor (Haswell, no TSX)
+CPU MHz:                         2294.608
 ```
 ````
 
@@ -123,7 +143,7 @@ $ singularity shell --bind $HOME/work:/opt/esm/work,$HOME/inputdata:/opt/esm/inp
 This means for instance that the content of the directory known as **$HOME/archive** on the host can be accessed on **/opt/esm/archive** inside the container, and *vice versa*
 
 :::{note}
-Inside the container the Bash shell prompt (**Singularity>**) is different from that on the host (**ubuntu@noresm:**)
+Inside the container the Bash shell prompt (**Singularity>**) is different from that on the host (where, depending on the name that was given to your Virtual Machine when it was created, it will be something like **ubuntu@noresm:** or **ubuntu@nuw_xxx:**)
 :::
 
 ### Create a new simulation, set it up, compile and run it inside the container
@@ -174,11 +194,13 @@ Then you *can* type:
 
 - **Ctrl+Z** to stop (pause) the program and get back to the shell
 - **bg** to run it in the background
+
+You can then *if you wish* exit the container (with the **exit** command) and re-enter it with the same command that you have used to run it with bindings (singularity shell \- \- bind ... workshop_2021.sif)
 :::
 
 ### Monitor your run
 
-To monitor your job you can open a 2<sup>nd</sup> terminal and login like on the 1<sup>st</sup> one, then type the following command
+To monitor your job *from outside the container* you can open a 2<sup>nd</sup> terminal and login like on the 1<sup>st</sup> one, then type the following command
 ```{code-block} bash
 $ htop
 ```
@@ -208,6 +230,13 @@ $ tail /home/ubuntu/work/test/run/atm.log*
 ![](/AtmLog.png)
 
 (there are 48 time steps per 24h simulation)
+
+You can still use *from inside the container* the **ps axu** command to monitor the processes running on your Virtual Machine (and in particular those related to your ESM run):
+```{code-block} bash
+$ ps axu | grep esm
+```
+![](/PS.png)
+
 
 ````
 
@@ -261,3 +290,21 @@ $ vi /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_nday
 
 Notice the similitude of the performance when running “inside-out” (mpirun used inside the container) and “outside-in” (mpirun invoked from outside the container): on a single node machine it virtually makes no difference to the run time and model throughput
 ````
+
+```{exercise} 
+:label: Differences
+Can you spot any difference between the outputs of the simulations performed from "inside-out" and "outside-in", for instance by comparing the **atm.log**s?
+```
+````{solution} Differences
+:class: dropdown
+```{code-block} bash
+$ cd /home/ubuntu
+$ gunzip archive/test/logs/atm.log.*
+$ diff work/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_*/run/atm.log.* archive/test/logs/atm.log.*
+
+```
+![](/ATM-LOG.png)
+
+Apart from expected differences in the case name and creation date/time they are absolutely identical
+````
+

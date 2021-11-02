@@ -218,17 +218,17 @@ $ mkdir work archive
 <p class="admonition-title">Note</p>
 <p>All the necessary inputdata being already available on <strong>/cluster/shared/noresm/inputdata</strong> there is no need to download the Zenodo tarball when you are on Betzy (or Fram)</p>
 </div>
-<p>Pull the same container as on the Virtual Machine and extract this time the Slurm batch job script <strong>job_hpc.sh</strong></p>
+<p>Pull the same container image as on the Virtual Machine, and extract this time the Slurm batch job script <strong>job_hpc.sh</strong></p>
 <p>On many systems it is common to use an alternative launcher to start parallel applications, for instance Slurm’s <strong>srun</strong> rather than the <strong>mpirun</strong> <em>wrapper</em> provided by a particular MPI installation (as we did on the Virtual Machine for the “outside-in” exercise)</p>
 <p>This approach is supported with Singularity as long as the MPI version installed in the container supports the same Process Management Interface (PMI) and version as that used by the launcher (which is the case with our container)</p>
 <p>In the frame of this workshop we are therefore going to use <strong>srun</strong> for automatically distributing the processes to precisely the resources allocated to the job, without loading any module with MPI</p>
 <div class="exercise admonition" id="1Day-Betzy">
-<p class="admonition-title"><span class="caption-number">Exercise 8 </span></p>
+<p class="admonition-title"><span class="caption-number">Exercise 10 </span></p>
 <div class="section" id="exercise-content">
 <p>Using the existing script <em>as it is</em> submit the Slurm job which runs NorESM for <strong>1 day</strong> on <strong>1x node</strong> and <strong>16x CPUs</strong>, then monitor the run and once the simulation has finished check the timing profile</p>
 </div>
 </div><div class="solution dropdown admonition" id="hpc-solution-1">
-<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#1Day-Betzy"><span>Solution to </span> Exercise 8</a></p>
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#1Day-Betzy"><span>Solution to </span> Exercise 10</a></p>
 <div class="section" id="solution-content">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sbatch job_hpc.sh
 </pre></div>
@@ -239,7 +239,7 @@ $ mkdir work archive
 <p>Short simulations do not necessarily provide the most representative performance figures therefore, for the purpose of benchmarking, longer simulations are normally performed (typically 1 month or more)</p>
 </div>
 <div class="exercise admonition" id="1Month-Betzy">
-<p class="admonition-title"><span class="caption-number">Exercise 9 </span></p>
+<p class="admonition-title"><span class="caption-number">Exercise 11 </span></p>
 <div class="section" id="exercise-content">
 <p>Edit the script to set <strong>nodes=8</strong> and <strong>tasks-per-node=128</strong>, delete the line with <strong>- - qos</strong> (in order to use the <em>normal</em> queue) and replace ‘ndays’ by <strong>‘nmonths’</strong>, then resubmit the job to get a more precise estimate of the model throughput</p>
 </div>
