@@ -32,8 +32,12 @@ Try to login on your Virtual Machine and let the organizers of the workshop know
 :class: dropdown
 ```{code-block} bash
 Key		Adresse
+Alfatih         158.39.75.205
+Dev             158.39.75.146
+Diogo           158.39.75.167
+Joeran          158.39.75.110
+Michael         158.39.75.8
 Yanchun 	158.39.75.200
-Alfatih 	158.39.75.205
 
 ```
 ````

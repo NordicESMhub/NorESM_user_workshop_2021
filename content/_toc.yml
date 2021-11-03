@@ -8,3 +8,4 @@ sections:
   sections:
   - file: virtual_machine
   - file: hpc
+- file: take_home
