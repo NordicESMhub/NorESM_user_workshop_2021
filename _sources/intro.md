@@ -4,13 +4,13 @@
 
 ## What is a container?
 
-A **container** is a unit of software that bundles a code and all its dependencies so that an application can run quickly in various computing environments
+A **container** is a unit of software that bundles a code and all its software dependencies so that an application can run quickly in various computing environments
 
-A container **image** is a standalone, executable package of software which includes everything needed to run an application: source code, compilers, libraries, etc.
+A container **image** is a standalone, executable package which includes everything needed to run an application: source code, compilers, libraries, etc.
 
-Images *become* containers **at runtime** when they run on a container engine (like Docker, Singularity, etc.) 
+Images *become* containers **at runtime** when they run on a container engine (like Docker, Singularity, Shifter, CharlieCloud, etc.) 
 
-*(From [https://www.docker.com/resources/what-container](https://www.docker.com/resources/what-container))*
+*(Inspired from [https://www.docker.com/resources/what-container](https://www.docker.com/resources/what-container))*
 
 ## Docker <img src="https://www.docker.com/sites/default/files/d8/styles/role_icon/public/2019-07/Docker-Logo-White-RGB_Vertical-BG_0.png?itok=8Tuac9I3" height="40">
 

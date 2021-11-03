@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Objectives of this training &#8212; NorESM User Workshop 2021</title>
+    <title>Take home messages &#8212; NorESM User Workshop 2021</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -52,8 +52,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="On the Virtual Machine" href="virtual_machine.html" />
-    <link rel="prev" title="Running NorESM in a container" href="intro.html" />
+    <link rel="prev" title="On Betzy" href="hpc.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -95,11 +94,11 @@
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="content.html">
    Objectives of this training
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
@@ -117,8 +116,8 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="take_home.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Take home messages
   </a>
  </li>
@@ -163,7 +162,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/content.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/take_home.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -183,7 +182,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/NordicESMHub/NorESM_user_workshop_2021/issues/new?title=Issue%20on%20page%20%2Fcontent.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/NordicESMHub/NorESM_user_workshop_2021/issues/new?title=Issue%20on%20page%20%2Ftake_home.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -204,6 +203,19 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#suggestion">
+   Suggestion
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -212,15 +224,64 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="objectives-of-this-training">
-<h1>Objectives of this training<a class="headerlink" href="#objectives-of-this-training" title="Permalink to this headline">¶</a></h1>
-<p>Learn how to use a Singularity container to setup and run NorESM (release 2.0.5) on different platforms:</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="take-home-messages">
+<h1>Take home messages<a class="headerlink" href="#take-home-messages" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>a Virtual Machine with <strong>Intel® Haswell</strong> Processors (&#64; Norwegian Research &amp; Education Cloud)</p></li>
-<li><p>a High Performance Computer with <strong>AMD® Rome</strong> Processors (Betzy &#64; Sigma2)</p></li>
+<li><p>Containers provide a <strong>consistent software environment</strong> (BYOS = Bring Your Own Software)</p>
+<ul>
+<li><p>The very same container image runs on different plateforms, from laptop/desktop to cloud and HPC</p>
+<ul>
+<li><p>Only requires a container engine (Docker, Singularity, Sarus, etc.) for single node (“inside-out”)</p></li>
+<li><p>An <strong>ABI compatible Message Passing Interface (MPI) library</strong>
+or Slurm Workload Manager (srun) and a <strong>Process Management Interface (PMI)</strong> for multi-nodes (“outside-in”)</p></li>
 </ul>
-<p><img alt="Two different ways to interact with a container" src="_images/Inside-outside.gif" /></p>
-<div class="toctree-wrapper compound">
+</li>
+<li><p>No need to wait for Sysem Administrators to install particular pieces of software</p></li>
+</ul>
+</li>
+<li><p>Use local and private resources for developments, testing, learning, etc.</p>
+<ul>
+<li><p>More confortable and <strong>responsive</strong> (no queue)</p></li>
+<li><p>Release (very expensive) HPC resources for production runs</p></li>
+</ul>
+</li>
+<li><p>Get the most of <strong>interconnects</strong> when adequate drivers and libraries are included</p>
+<ul>
+<li><p>May require some “tuning” for “exotic” infrastructures</p></li>
+</ul>
+</li>
+<li><p>No proprietary compiler</p>
+<ul>
+<li><p>Free for everyone to use and <strong>distribute</strong></p></li>
+</ul>
+</li>
+<li><p><strong>Performances</strong> close to running directly on bare-metal, often better</p></li>
+<li><p>Bit-for-bit <strong>reproducibility</strong> (with the same PES layout and same CPU architecture)</p>
+<ul>
+<li><p>Start simulations somewhere and continue them anywhere resources are available</p></li>
+</ul>
+</li>
+<li><p>Can be used as part of <strong>workflows</strong> in which one task is the climate simulation itself</p>
+<ul>
+<li><p>Full control over the entire sequence of tasks (no possible loss of information)</p></li>
+<li><p>A <em>must</em> for <strong>reproducible research</strong></p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="suggestion">
+<h2>Suggestion<a class="headerlink" href="#suggestion" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Accompany every new NorESM release with the container that was used by the development team</p>
+<ul>
+<li><p>Guaranted results</p></li>
+<li><p>Much easier for users</p>
+<ul>
+<li><p><strong>Focus on science instead of wasting time to sort-out porting and software dependencies</strong></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 
@@ -254,23 +315,14 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="intro.html" title="previous page">
+        <a class="left-prev" href="hpc.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Running NorESM in a container</p>
+                <p class="prevnext-title">On Betzy</p>
             </div>
         </a>
     </div>
-     <div id="next">
-        <a class="right-next" href="virtual_machine.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">On the Virtual Machine</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
 
 </div>
         
