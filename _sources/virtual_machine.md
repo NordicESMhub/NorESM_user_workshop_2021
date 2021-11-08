@@ -32,11 +32,26 @@ Try to login on your Virtual Machine and let the organizers of the workshop know
 :class: dropdown
 ```{code-block} bash
 Key		Adresse
+Akhilesh        ---.--.--.---
 Alfatih         158.39.75.205
+Ana             158.39.75.164
+Anusha          ---.--.--.---
+Astrid          ---.--.--.---
 Dev             158.39.75.146
 Diogo           158.39.75.167
+Gaurav          158.37.63.158
+Heiko           158.39.75.148
+Homa            ---.--.--.---
+Jean            158.39.75.12
 Joeran          158.39.75.110
+Kjetil          
+Marte           158.37.63.172
+Martin          158.39.75.89
+Matvey          ---.--.--.---
 Michael         158.39.75.8
+Tarkan          158.39.75.80
+Tarkeshwar      ---.--.--.---
+Tyge            ---.--.--.---
 Yanchun 	158.39.75.200
 
 ```
@@ -88,7 +103,7 @@ $ cd $HOME
 $ mkdir work archive 
 ```
 
-Get the inputdata from <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4683483.svg" height="25">
+Get the inputdata from Zenodo <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4683483.svg" height="25">
 
 ```
 $ wget https://zenodo.org/record/4683483/files/inputdata_NF2000climo_f19_f19_mg17.tar.gz
@@ -104,15 +119,13 @@ This will add the inputdata folder on **$HOME** and will be much faster than dow
 
 ### Pull the container image and execute it
 
-Get the NorESM container
+Get the NorESM container 
 
-```
-$ wget ...NorESM_user_workshop_2021.sif
-```
 
-Type the following command to start a Singularity container and run an interactive shell within it
+Type the following commands to **make it executable**, then start a Singularity container and run an interactive shell within it
 
 ```{code-block}
+$ chmod ugo+rwx NorESM_user_workshop_2021.sif
 $ singularity shell --contain NorESM_user_workshop_2021.sif
 ```
 ```{exercise} 
@@ -147,7 +160,7 @@ $ singularity shell --bind $HOME/work:/opt/esm/work,$HOME/inputdata:/opt/esm/inp
 This means for instance that the content of the directory known as **$HOME/archive** on the host can be accessed on **/opt/esm/archive** inside the container, and *vice versa*
 
 :::{note}
-Inside the container the Bash shell prompt (**Singularity>**) is different from that on the host (where, depending on the name that was given to your Virtual Machine when it was created, it will be something like **ubuntu@noresm:** or **ubuntu@nuw_xxx:**)
+Inside the container the Bash shell prompt (**Singularity>**) is different from that on the host (where, depending on the name that was given to your Virtual Machine when it was created, it will be something like **ubuntu@nuw_name:**)
 :::
 
 ### Create a new simulation, set it up, compile and run it inside the container

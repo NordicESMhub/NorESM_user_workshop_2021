@@ -204,6 +204,19 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-few-words-on-bit-for-bit-reproducibility">
+   A few words on Bit-For-Bit reproducibility
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -224,21 +237,24 @@ $ mkdir work archive
 <p class="admonition-title">Note</p>
 <p>All the necessary inputdata being already available on <strong>/cluster/shared/noresm/inputdata</strong> there is no need to download the Zenodo tarball when you are on Betzy (or Fram)</p>
 </div>
-<p>Pull the same container image as on the Virtual Machine, and extract this time the Slurm batch job script <strong>job_hpc.sh</strong></p>
+<p>Pull the same container image as on the Virtual Machine, <strong>make it executable</strong>, and extract this time the Slurm batch job script <strong>job_hpc.sh</strong></p>
 <p>On many systems it is common to use an alternative launcher to start parallel applications, for instance Slurm’s <strong>srun</strong> rather than the <strong>mpirun</strong> <em>wrapper</em> provided by a particular MPI installation (as we did on the Virtual Machine for the “outside-in” exercise)</p>
 <p>This approach is supported with Singularity as long as the MPI version installed in the container supports the same Process Management Interface (PMI) and version as that used by the launcher (which is the case with our container)</p>
 <p>In the frame of this workshop we are therefore going to use <strong>srun</strong> for automatically distributing the processes to precisely the resources allocated to the job, without loading any module with MPI</p>
 <div class="exercise admonition" id="1Day-Betzy">
 <p class="admonition-title"><span class="caption-number">Exercise 10 </span></p>
 <div class="section" id="exercise-content">
-<p>Using the existing script <em>as it is</em> submit the Slurm job which runs NorESM for <strong>1 day</strong> on <strong>1x node</strong> and <strong>16x CPUs</strong>, then monitor the run and once the simulation has finished check the timing profile</p>
+<p>Edit the script to set <strong>nodes=1</strong>, <strong>tasks-per-node=16</strong> and specify that we are using the <em>development</em> queue, then  submit the Slurm job which will run NorESM for <strong>1 day</strong> on <strong>1x node</strong> and <strong>16x CPUs</strong>.</p>
+<p>Monitor the execution and once the simulation has finished check the timing profile</p>
 </div>
 </div><div class="solution dropdown admonition" id="hpc-solution-1">
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#1Day-Betzy"><span>Solution to </span> Exercise 10</a></p>
 <div class="section" id="solution-content">
+<p><img alt="" src="_images/Betzy_Jobx16.png" /></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sbatch job_hpc.sh
 </pre></div>
 </div>
+<p><img alt="" src="_images/Timing-Betzy.png" /></p>
 </div>
 </div><div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -247,11 +263,55 @@ $ mkdir work archive
 <div class="exercise admonition" id="1Month-Betzy">
 <p class="admonition-title"><span class="caption-number">Exercise 11 </span></p>
 <div class="section" id="exercise-content">
-<p>Edit the script to set <strong>nodes=8</strong> and <strong>tasks-per-node=128</strong>, delete the line with <strong>- - qos</strong> (in order to use the <em>normal</em> queue) and replace ‘ndays’ by <strong>‘nmonths’</strong>, then resubmit the job to get a more precise estimate of the model throughput</p>
+<p>Edit the script to set <strong>nodes=8</strong> and <strong>tasks-per-node=128</strong>, delete the line with <strong>- - qos</strong> (in order to use the <em>normal</em> queue), change the name of the machine to <strong>‘container’</strong> and replace ‘ndays’ by <strong>‘nmonths’</strong>, then resubmit the job to get a more precise estimate of the model throughput</p>
 </div>
-</div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
+</div><div class="solution dropdown admonition" id="hpc-solution-3">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#1Month-Betzy"><span>Solution to </span> Exercise 11</a></p>
+<div class="section" id="solution-content">
+<p><img alt="" src="_images/Betzy_Job_8x128.png" /></p>
+<p><img alt="" src="_images/Timing-Betzy_8x128.png" /></p>
 </div>
+</div><div class="exercise admonition" id="To_think_about">
+<p class="admonition-title"><span class="caption-number">Exercise 12 </span></p>
+<div class="section" id="exercise-content">
+<p>To thing about: which of the 1x16 or 8x128 CPU runs provides the best <em>value-for-money</em>?</p>
+</div>
+</div><div class="solution dropdown admonition" id="hpc-solution-5">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#To_think_about"><span>Solution to </span> Exercise 12</a></p>
+<div class="section" id="solution-content">
+<p>The <strong>scalability</strong> being what it is, the more tasks are involved in the computation the more time is spent in communications rather than calculations, especially when several nodes are put to work (the bandwidth and latency are generally much better within a single node than inter-nodes), and therefore the performance declines rapidly</p>
+<ul class="simple">
+<li><p>This also applies to bare-metal, not only to containers</p></li>
+<li><p>Always try to find the <strong>sweet spot</strong> for your simulation, depending on the compset and resolution used</p></li>
+<li><p>Unless there are short deadlines to meet, it is not sensible or economical (or environmentally friendly) to perform your experiment with the largest number of CPUs possible.</p></li>
+</ul>
+</div>
+</div><div class="section" id="a-few-words-on-bit-for-bit-reproducibility">
+<h2>A few words on Bit-For-Bit reproducibility<a class="headerlink" href="#a-few-words-on-bit-for-bit-reproducibility" title="Permalink to this headline">¶</a></h2>
+<p>Are NorESM simulations always identical on platforms with different hardware and software configurations?</p>
+<div class="exercise admonition" id="BFB-Reproducibility">
+<p class="admonition-title"><span class="caption-number">Exercise 13 </span></p>
+<div class="section" id="exercise-content">
+<p>The short answer is “No!” when running on bare metal, but what happens when using a container?</p>
+<p>We already had a look at outputs from the “outside-in” and “inside-out” simulations carried out with the container on the Virtual Machine with x16 <strong>Intel® Haswell</strong> processors.</p>
+<p>How does that compare to the run on Betzy this time with x16 <strong>AMD® Rome</strong> processors?</p>
+</div>
+</div><div class="solution dropdown admonition" id="hpc-solution-7">
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#BFB-Reproducibility"><span>Solution to </span> Exercise 13</a></p>
+<div class="section" id="solution-content">
+<p>Virtual Machine 1x16 VCPUs <strong>Intel® Haswell</strong></p>
+<p><img alt="" src="_images/VMx16_log.png" /></p>
+<p>Betzy HPC 1x16 CPUs <strong>AMD® Rome</strong>
+<img alt="" src="_images/Betzyx16_log.png" /></p>
+<p>Here again they turn out to be absolutely identical.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is also possible to use the <strong>diffn</strong> operator from the Climate Data Operator (CDO) software collection (several versions are available as <em>modules</em> on Betzy) to compare the contents of two datasets field by field, for instance history or restart NetCDF files: the exit status will be 0 if inputs are the same and 1 if they differ.</p>
+<p>This is an example of result for 1-month simulations done with 128 CPUs on Betzy and Lumi confirming that there is no difference in the CAM history files:</p>
+<p><img alt="" src="_images/Diffn_Betzy_Lumi.png" /></p>
+</div>
+</div>
+</div></div>
 </div>
 
     <script type="text/x-thebe-config">

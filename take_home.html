@@ -203,19 +203,6 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#suggestion">
-   Suggestion
-  </a>
- </li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -232,57 +219,48 @@
 <li><p>The very same container image runs on different plateforms, from laptop/desktop to cloud and HPC</p>
 <ul>
 <li><p>Only requires a container engine (Docker, Singularity, Sarus, etc.) for single node (“inside-out”)</p></li>
-<li><p>An <strong>ABI compatible Message Passing Interface (MPI) library</strong>
-or Slurm Workload Manager (srun) and a <strong>Process Management Interface (PMI)</strong> for multi-nodes (“outside-in”)</p></li>
+<li><p>An <strong>ABI compatible Message Passing Interface (MPI) library</strong></p></li>
+<li><p>or Slurm Workload Manager (srun) and a <strong>Process Management Interface (PMI)</strong> for multi-nodes (“outside-in”)</p></li>
 </ul>
 </li>
-<li><p>No need to wait for Sysem Administrators to install particular pieces of software</p></li>
+<li><p>No need to wait for System Administrators to install particular pieces of software</p></li>
 </ul>
 </li>
 <li><p>Use local and private resources for developments, testing, learning, etc.</p>
 <ul>
 <li><p>More confortable and <strong>responsive</strong> (no queue)</p></li>
-<li><p>Release (very expensive) HPC resources for production runs</p></li>
+<li><p>Release (very expensive) <strong>HPC resources for production runs</strong></p></li>
 </ul>
 </li>
 <li><p>Get the most of <strong>interconnects</strong> when adequate drivers and libraries are included</p>
 <ul>
-<li><p>May require some “tuning” for “exotic” infrastructures</p></li>
+<li><p>May require customization for “exotic” infrastructures</p></li>
 </ul>
 </li>
-<li><p>No proprietary compiler</p>
+<li><p>No proprietary compilers or libraries</p>
 <ul>
 <li><p>Free for everyone to use and <strong>distribute</strong></p></li>
 </ul>
 </li>
 <li><p><strong>Performances</strong> close to running directly on bare-metal, often better</p></li>
-<li><p>Bit-for-bit <strong>reproducibility</strong> (with the same PES layout and same CPU architecture)</p>
+<li><p>Bit-for-bit <strong>reproducibility</strong> (with the same processor layout, same architecture and same compilation/optimization options)</p>
 <ul>
-<li><p>Start simulations somewhere and continue them anywhere resources are available</p></li>
+<li><p>Start simulations somewhere and continue them wherever compute resources are available</p></li>
 </ul>
 </li>
 <li><p>Can be used as part of <strong>workflows</strong> in which one task is the climate simulation itself</p>
 <ul>
 <li><p>Full control over the entire sequence of tasks (no possible loss of information)</p></li>
-<li><p>A <em>must</em> for <strong>reproducible research</strong></p></li>
+<li><p>One step closer to <strong>reproducible research</strong></p></li>
 </ul>
 </li>
-</ul>
-<div class="section" id="suggestion">
-<h2>Suggestion<a class="headerlink" href="#suggestion" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Accompany every new NorESM release with the container that was used by the development team</p>
+<li><p>In the future it will be possible to accompany every new NorESM release with the container that was used by the development team</p>
 <ul>
-<li><p>Guaranted results</p></li>
-<li><p>Much easier for users</p>
-<ul>
-<li><p><strong>Focus on science instead of wasting time to sort-out porting and software dependencies</strong></p></li>
+<li><p>Guaranted results (fully tested and validated)</p></li>
+<li><p>Much easier for users who will be able to <strong>focus on science instead of wasting time to sort-out porting and software dependencies</strong></p></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-</div>
 </div>
 
     <script type="text/x-thebe-config">

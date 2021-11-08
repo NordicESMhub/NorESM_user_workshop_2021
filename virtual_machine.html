@@ -296,11 +296,26 @@
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Login"><span>Solution to </span> Exercise 1</a></p>
 <div class="section" id="solution-content">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Key		Adresse
+Akhilesh        ---.--.--.---
 Alfatih         <span class="m">158</span>.39.75.205
+Ana             <span class="m">158</span>.39.75.164
+Anusha          ---.--.--.---
+Astrid          ---.--.--.---
 Dev             <span class="m">158</span>.39.75.146
 Diogo           <span class="m">158</span>.39.75.167
+Gaurav          <span class="m">158</span>.37.63.158
+Heiko           <span class="m">158</span>.39.75.148
+Homa            ---.--.--.---
+Jean            <span class="m">158</span>.39.75.12
 Joeran          <span class="m">158</span>.39.75.110
+Kjetil          
+Marte           <span class="m">158</span>.37.63.172
+Martin          <span class="m">158</span>.39.75.89
+Matvey          ---.--.--.---
 Michael         <span class="m">158</span>.39.75.8
+Tarkan          <span class="m">158</span>.39.75.80
+Tarkeshwar      ---.--.--.---
+Tyge            ---.--.--.---
 Yanchun 	<span class="m">158</span>.39.75.200
 </pre></div>
 </div>
@@ -347,7 +362,7 @@ CPU MHz:                         <span class="m">2294</span>.608
 $ mkdir work archive 
 </pre></div>
 </div>
-<p>Get the inputdata from <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4683483.svg" height="25"></p>
+<p>Get the inputdata from Zenodo <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4683483.svg" height="25"></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget https://zenodo.org/record/4683483/files/inputdata_NF2000climo_f19_f19_mg17.tar.gz
 </pre></div>
 </div>
@@ -360,11 +375,9 @@ $ mkdir work archive
 <div class="section" id="pull-the-container-image-and-execute-it">
 <h3>Pull the container image and execute it<a class="headerlink" href="#pull-the-container-image-and-execute-it" title="Permalink to this headline">¶</a></h3>
 <p>Get the NorESM container</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget ...NorESM_user_workshop_2021.sif
-</pre></div>
-</div>
-<p>Type the following command to start a Singularity container and run an interactive shell within it</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ singularity shell --contain NorESM_user_workshop_2021.sif
+<p>Type the following commands to <strong>make it executable</strong>, then start a Singularity container and run an interactive shell within it</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chmod ugo+rwx NorESM_user_workshop_2021.sif
+$ singularity shell --contain NorESM_user_workshop_2021.sif
 </pre></div>
 </div>
 <div class="exercise admonition" id="Contain">
@@ -395,7 +408,7 @@ $ touch text.txt
 <p>This means for instance that the content of the directory known as <strong>$HOME/archive</strong> on the host can be accessed on <strong>/opt/esm/archive</strong> inside the container, and <em>vice versa</em></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Inside the container the Bash shell prompt (<strong>Singularity&gt;</strong>) is different from that on the host (where, depending on the name that was given to your Virtual Machine when it was created, it will be something like <strong>ubuntu&#64;noresm:</strong> or <strong>ubuntu&#64;nuw_xxx:</strong>)</p>
+<p>Inside the container the Bash shell prompt (<strong>Singularity&gt;</strong>) is different from that on the host (where, depending on the name that was given to your Virtual Machine when it was created, it will be something like <strong>ubuntu&#64;nuw_name:</strong>)</p>
 </div>
 </div>
 <div class="section" id="create-a-new-simulation-set-it-up-compile-and-run-it-inside-the-container">
