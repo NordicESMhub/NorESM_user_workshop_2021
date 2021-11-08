@@ -119,15 +119,8 @@ This will add the inputdata folder on **$HOME** and will be much faster than dow
 
 ### Pull the container image and execute it
 
-Get the NorESM container from Zenodo <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5652619.svg" height="25">
+Get the NorESM container 
 
-```
-$ wget https://zenodo.org/record/5652619/files/NorESM_user_workshop_2021.sif
-```
-
-The download should take less than 1 minute:
-
-![](/SIF.png)
 
 Type the following commands to **make it executable**, then start a Singularity container and run an interactive shell within it
 
