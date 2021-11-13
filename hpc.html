@@ -231,9 +231,9 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="on-betzy">
 <h1>On Betzy<a class="headerlink" href="#on-betzy" title="Permalink to this headline">¶</a></h1>
 <p>Login on Betzy with your usual Sigma2 <em>username</em> (i.e., you are not <em>ubuntu</em> any more), and proceed like on the Virtual Machine but use <strong>/cluster/work/users/$USER</strong> (which is equivalent to <strong>$USERWORK</strong>) instead of <strong>/home/ubuntu</strong> for staging and job data:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh -i ~/.ssh/YourPrivateSSHkey YourSigma2UserName@betzy.sigma2.no
-$ cd $USERWORK
-$ mkdir work archive
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ssh -i ~/.ssh/YourPrivateSSHkey YourSigma2UserName@betzy.sigma2.no
+cd $USERWORK
+mkdir work archive
 </pre></div>
 </div>
 <div class="admonition note">
@@ -254,7 +254,7 @@ $ mkdir work archive
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#1Day-Betzy"><span>Solution to </span> Exercise 9</a></p>
 <div class="section" id="solution-content">
 <p><img alt="" src="_images/Betzy_Jobx16.png" /></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sbatch job_hpc.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbatch job_hpc.sh
 </pre></div>
 </div>
 <p><img alt="" src="_images/Timing-Betzy.png" /></p>
