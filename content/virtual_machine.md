@@ -118,14 +118,25 @@ Inside the container the Bash shell prompt (**Singularity>**) is different from 
 
 ```{exercise} 
 :label: Contain
-Once inside the container explore, navigate through the folders, try to create new files and/or directories, what happens?
+Once inside the container explore, navigate through the folders, try to create new files in the home directory (**/home/ubuntu**), for instance create a file called **text.txt** with some text in it, what happens?
+
+Now exit the container try to see whether the **text.txt** file is accessible on the host
+
 ```
+
+
 ````{solution} Contain
 :class: dropdown
+
 ```{code-block} bash
 pwd
 ls -lrt /opt/esm
 touch text.txt
+```
+
+
+```{code-block} bash
+exit
 ```
 
 You should be able to create new files and new folders inside the container, without any error or warning, however these files and folders will not exist outside
@@ -133,7 +144,9 @@ You should be able to create new files and new folders inside the container, wit
 This is because the **\- \- contain**  flag will use minimal **/dev** and empty other directories (e.g., **/tmp**) instead of sharing filesystems from your host
 
 Without this flag, by default, the **home** directory, the **current working directory**, but also some system folders (**/tmp**, **/proc**, **/sys** and **/dev**) are automatically included inside each container: these are in fact those from the host (and any alteration done from inside the container, voluntarily or not, will be permanent, therefore be very cautious)
+
 ````
+
 
 ### Run the container with bindings
 
