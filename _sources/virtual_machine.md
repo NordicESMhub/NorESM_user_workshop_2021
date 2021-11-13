@@ -50,7 +50,7 @@ Check the architecture, model and number of processors available on the Virtual 
 ````{solution} CPU
 :class: dropdown
 ```{code-block} bash
-lscpu                       2294.608
+lscpu  
 ```
 
 ```{code-block} bash
