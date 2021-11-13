@@ -275,7 +275,7 @@
 <div class="section" id="from-inside-out">
 <h2>From “inside-out”<a class="headerlink" href="#from-inside-out" title="Permalink to this headline">¶</a></h2>
 <p>Login on your own Virtual Machine with the <strong>private SSH key</strong> corresponding to the public key that you provided the Organizers of this Workshop (it does not grant you access to any other Virtual Machine anyway):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh -i ~/.ssh/YourPrivateSSHkey ubuntu@aaa.bb.cc.ddd
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">i</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">YourPrivateSSHkey</span> <span class="n">ubuntu</span><span class="nd">@aaa</span><span class="o">.</span><span class="n">bb</span><span class="o">.</span><span class="n">cc</span><span class="o">.</span><span class="n">ddd</span>
 </pre></div>
 </div>
 <p>Each Virtual Machine features 16 VCPUs + 64GB RAM + 80GB root disk, and comes with:</p>
@@ -288,7 +288,6 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Use the <em>actual path</em> to where your SSH keys are stored on your laptop (instead of <em>~/.ssh/</em>), replace <em>&#64;aaa.bb.cc.ddd</em> by the IP address that you have been allocated, and all use the same user name (<em>ubuntu</em>)</p>
-<p>The <strong>“$”</strong> character at the begining of each line is meant to represent the Bash shell prompt whilst the remainder of the line is the command itself</p>
 </div>
 <div class="section" id="basic-verifications">
 <h3>Basic verifications<a class="headerlink" href="#basic-verifications" title="Permalink to this headline">¶</a></h3>
@@ -301,9 +300,10 @@
 </div><div class="solution dropdown admonition" id="virtual_machine-solution-1">
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Version"><span>Solution to </span> Exercise 1</a></p>
 <div class="section" id="solution-content">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ singularity --version
-
-singularity version <span class="m">3</span>.8.3
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity --version
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity version <span class="m">3</span>.8.3
 </pre></div>
 </div>
 </div>
@@ -315,9 +315,10 @@ singularity version <span class="m">3</span>.8.3
 </div><div class="solution dropdown admonition" id="virtual_machine-solution-3">
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#CPU"><span>Solution to </span> Exercise 2</a></p>
 <div class="section" id="solution-content">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ lscpu
-
-Architecture:                    x86_64
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lscpu                       <span class="m">2294</span>.608
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Architecture:                    x86_64
 CPU<span class="o">(</span>s<span class="o">)</span>:                          <span class="m">16</span>
 Model name:                      Intel Core Processor <span class="o">(</span>Haswell, no TSX<span class="o">)</span>
 CPU MHz:                         <span class="m">2294</span>.608
@@ -328,16 +329,17 @@ CPU MHz:                         <span class="m">2294</span>.608
 <div class="section" id="preparation-of-the-necessary-folders-and-input-data">
 <h3>Preparation of the necessary folders and input data<a class="headerlink" href="#preparation-of-the-necessary-folders-and-input-data" title="Permalink to this headline">¶</a></h3>
 <p>Create the work and archive folders in your <strong>$HOME</strong> directory</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd $HOME
-$ mkdir work archive 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME
+
+mkdir work archive 
 </pre></div>
 </div>
 <p>Get the inputdata from Zenodo <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4683483.svg" height="25"></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget https://zenodo.org/record/4683483/files/inputdata_NF2000climo_f19_f19_mg17.tar.gz
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">zenodo</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">record</span><span class="o">/</span><span class="mi">4683483</span><span class="o">/</span><span class="n">files</span><span class="o">/</span><span class="n">inputdata_NF2000climo_f19_f19_mg17</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
 </pre></div>
 </div>
 <p>Extract (or untar) all the files from the archive</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tar zxvf inputdata_NF2000climo_f19_f19_mg17.tar.gz
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="n">zxvf</span> <span class="n">inputdata_NF2000climo_f19_f19_mg17</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
 </pre></div>
 </div>
 <p>This will add the inputdata folder on <strong>$HOME</strong> and will be much faster than downloading individual files on-the-fly, hence saving us a lot of time.</p>
@@ -345,19 +347,19 @@ $ mkdir work archive
 <div class="section" id="pull-the-container-image-and-execute-it">
 <h3>Pull the container image and execute it<a class="headerlink" href="#pull-the-container-image-and-execute-it" title="Permalink to this headline">¶</a></h3>
 <p>Get the NorESM container from Zenodo <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5652619.svg" height="25"></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget https://zenodo.org/record/5652619/files/NorESM_user_workshop_2021.sif
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">zenodo</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">record</span><span class="o">/</span><span class="mi">5652619</span><span class="o">/</span><span class="n">files</span><span class="o">/</span><span class="n">NorESM_user_workshop_2021</span><span class="o">.</span><span class="n">sif</span>
 </pre></div>
 </div>
 <p>The download should take less than 1 minute:</p>
 <p><img alt="" src="_images/SIF.png" /></p>
 <p>Type the following commands to change the access permissions of the .sif file (i.e., to <strong>make it executable</strong>), then start a Singularity container and run an interactive shell within it</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chmod ugo+rwx NorESM_user_workshop_2021.sif
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="n">ugo</span><span class="o">+</span><span class="n">rwx</span> <span class="n">NorESM_user_workshop_2021</span><span class="o">.</span><span class="n">sif</span>
 
-$ ls -l NorESM_user_workshop_2021.sif
+<span class="n">ls</span> <span class="o">-</span><span class="n">l</span> <span class="n">NorESM_user_workshop_2021</span><span class="o">.</span><span class="n">sif</span>
 </pre></div>
 </div>
 <p><img alt="" src="Perms.png" /></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ singularity shell --contain NorESM_user_workshop_2021.sif
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">singularity</span> <span class="n">shell</span> <span class="o">--</span><span class="n">contain</span> <span class="n">NorESM_user_workshop_2021</span><span class="o">.</span><span class="n">sif</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -372,9 +374,9 @@ $ ls -l NorESM_user_workshop_2021.sif
 </div><div class="solution dropdown admonition" id="virtual_machine-solution-5">
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Contain"><span>Solution to </span> Exercise 3</a></p>
 <div class="section" id="solution-content">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">pwd</span>
-$ ls -lrt /opt/esm
-$ touch text.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">pwd</span>
+ls -lrt /opt/esm
+touch text.txt
 </pre></div>
 </div>
 <p>You should be able to create new files and new folders inside the container, without any error or warning, however these files and folders will not exist outside</p>
@@ -386,7 +388,7 @@ $ touch text.txt
 <h3>Run the container with bindings<a class="headerlink" href="#run-the-container-with-bindings" title="Permalink to this headline">¶</a></h3>
 <p>To be able to share files and folders between the container and the host, explicit binding paths have to be specified in the format <strong>src:dest</strong>, where <strong>src</strong> and <strong>dest</strong> are paths outside and inside of the container, respectively, separated by a colon (:)</p>
 <p>Shared <strong>work</strong> and <strong>archive</strong> directories will allow us to access model outputs from the host, even after the container ceased to exist. Also the shared <strong>inputdata</strong> which was created and populated from the host can be made accessible inside the container</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ singularity shell --bind $HOME/work:/opt/esm/work,$HOME/inputdata:/opt/esm/inputdata,$HOME/archive:/opt/esm/archive NorESM_user_workshop_2021.sif
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>singularity shell --bind $HOME/work:/opt/esm/work,$HOME/inputdata:/opt/esm/inputdata,$HOME/archive:/opt/esm/archive NorESM_user_workshop_2021.sif
 </pre></div>
 </div>
 <p>This means for instance that the content of the directory known as <strong>$HOME/archive</strong> on the host can be accessed on <strong>/opt/esm/archive</strong> inside the container, and <em>vice versa</em></p>
@@ -408,21 +410,21 @@ $ touch text.txt
 </div><div class="solution dropdown admonition" id="virtual_machine-solution-7">
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Test-case"><span>Solution to </span> Exercise 4</a></p>
 <div class="section" id="solution-content">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /opt/esm/my_sandbox/cime/scripts/
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /opt/esm/my_sandbox/cime/scripts/
 
-$ ./create_newcase --case /opt/esm/archive/cases/test --compset NF2000climo --res f19_f19_mg17 --machine virtual --run-unsupported
+./create_newcase --case /opt/esm/archive/cases/test --compset NF2000climo --res f19_f19_mg17 --machine virtual --run-unsupported
 
-$ <span class="nb">cd</span> /opt/esm/archive/cases/test
+<span class="nb">cd</span> /opt/esm/archive/cases/test
 
-$ ./xmlchange <span class="nv">STOP_N</span><span class="o">=</span><span class="m">1</span>
-$ ./xmlchange <span class="nv">STOP_OPTION</span><span class="o">=</span>ndays
-$ ./xmlchange --file env_mach_pes.xml --id NTASKS --val -1
+./xmlchange <span class="nv">STOP_N</span><span class="o">=</span><span class="m">1</span>
+./xmlchange <span class="nv">STOP_OPTION</span><span class="o">=</span>ndays
+./xmlchange --file env_mach_pes.xml --id NTASKS --val -1
 
-$ ./case.setup
+./case.setup
 
-$ ./case.build
+./case.build
 
-$ ./case.submit
+./case.submit
 </pre></div>
 </div>
 </div>
@@ -442,7 +444,7 @@ $ ./case.submit
 <div class="section" id="monitor-your-run">
 <h3>Monitor your run<a class="headerlink" href="#monitor-your-run" title="Permalink to this headline">¶</a></h3>
 <p>To monitor your job <em>from outside the container</em> you can open a 2<sup>nd</sup> terminal and login like on the 1<sup>st</sup> one, then type the following command</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ htop
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>htop
 </pre></div>
 </div>
 <p><img alt="" src="_images/htop.png" /></p>
@@ -457,18 +459,18 @@ $ ./case.submit
 <div class="section" id="solution-content">
 <p>New output files and log files are created as the model runs, so check for example their size and/or content to get an idea about what is going on during the simulation</p>
 <p>Notice how, at the begining of the run, only <strong>finidat_interp_dest.nc</strong> and the <strong>lnd.log</strong> file grow in size as the LAND component is initialized (and interpolations are being performed)</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ls -lrt /home/ubuntu/work/test/run
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls -lrt /home/ubuntu/work/test/run
 </pre></div>
 </div>
 <p><img alt="" src="_images/Workdir.png" /></p>
 <p>Verify which time steps the CAM component has completed:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tail /home/ubuntu/work/test/run/atm.log*
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tail /home/ubuntu/work/test/run/atm.log*
 </pre></div>
 </div>
 <p><img alt="" src="_images/AtmLog.png" /></p>
 <p>(there are 48 time steps per 24h simulation)</p>
 <p>You can still use <em>from inside the container</em> the <strong>ps axu</strong> command to monitor the processes running on your Virtual Machine (and in particular those related to your ESM run):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ps axu <span class="p">|</span> grep esm
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ps axu <span class="p">|</span> grep esm
 </pre></div>
 </div>
 <p><img alt="" src="_images/PS.png" /></p>
@@ -485,7 +487,7 @@ $ ./case.submit
 </div><div class="solution dropdown admonition" id="virtual_machine-solution-11">
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Timing-test"><span>Solution to </span> Exercise 6</a></p>
 <div class="section" id="solution-content">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ vi /home/ubuntu/archive/cases/test/timing/cesm_timing.*
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi /home/ubuntu/archive/cases/test/timing/cesm_timing.*
 </pre></div>
 </div>
 <p><img alt="" src="_images/TimingTest.png" /></p>
@@ -495,15 +497,15 @@ $ ./case.submit
 <div class="section" id="from-outside-in">
 <h2>From “outside-in”<a class="headerlink" href="#from-outside-in" title="Permalink to this headline">¶</a></h2>
 <p>Let’s now do the same simulation in a more automated way using the bash script called <strong>“job_vm.sh”</strong> which comes in the container (and can be extracted from <strong>/opt/esm</strong>)</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /home/ubuntu
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /home/ubuntu
 
-$ singularity <span class="nb">exec</span> NorESM_user_workshop_2021.sif cp /opt/esm/job_vm.sh .
+singularity <span class="nb">exec</span> NorESM_user_workshop_2021.sif cp /opt/esm/job_vm.sh .
 </pre></div>
 </div>
 <p>For the sake of convenience this bash script follows the same structure as the Slurm job batch script which will be used on Betzy</p>
 <p>This will export several environmental variables (number of nodes, CPUs, etc.), then create the new case, do the setup, compile, run the simulation and generate the timing profile</p>
 <p>Submit the job on the Virtual Machine by typing the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bash job_vm.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash job_vm.sh
 </pre></div>
 </div>
 <p>This time we use the sequence <strong>mpirun singularity … esm.exe</strong> (instead of <strong>singularity mpirun … esm.exe</strong>)</p>
@@ -515,7 +517,7 @@ $ singularity <span class="nb">exec</span> NorESM_user_workshop_2021.sif cp /opt
 </div><div class="solution dropdown admonition" id="virtual_machine-solution-13">
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Timing-VM"><span>Solution to </span> Exercise 7</a></p>
 <div class="section" id="solution-content">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ vi /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19.999999-999999
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19.999999-999999
 </pre></div>
 </div>
 <p><img alt="" src="_images/Timing-VM.png" /></p>
@@ -529,9 +531,9 @@ $ singularity <span class="nb">exec</span> NorESM_user_workshop_2021.sif cp /opt
 </div><div class="solution dropdown admonition" id="virtual_machine-solution-15">
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Differences"><span>Solution to </span> Exercise 8</a></p>
 <div class="section" id="solution-content">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /home/ubuntu
-$ gunzip archive/test/logs/atm.log.*
-$ diff work/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_*/run/atm.log.* archive/test/logs/atm.log.*
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /home/ubuntu
+gunzip archive/test/logs/atm.log.*
+diff work/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_*/run/atm.log.* archive/test/logs/atm.log.*
 </pre></div>
 </div>
 <p><img alt="" src="_images/ATM-LOG.png" /></p>
