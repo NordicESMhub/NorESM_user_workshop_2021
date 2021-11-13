@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>On Betzy &#8212; NorESM User Workshop 2021</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -55,7 +55,10 @@
     <link rel="next" title="Take home messages" href="take_home.html" />
     <link rel="prev" title="On the Virtual Machine" href="virtual_machine.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -242,13 +245,13 @@ $ mkdir work archive
 <p>This approach is supported with Singularity as long as the MPI version installed in the container supports the same Process Management Interface (PMI) and version as that used by the launcher (which is the case with our container)</p>
 <p>In the frame of this workshop we are therefore going to use <strong>srun</strong> for automatically distributing the processes to precisely the resources allocated to the job, without loading any module with MPI</p>
 <div class="exercise admonition" id="1Day-Betzy">
-<p class="admonition-title"><span class="caption-number">Exercise 10 </span></p>
+<p class="admonition-title"><span class="caption-number">Exercise 9 </span></p>
 <div class="section" id="exercise-content">
 <p>Edit the script to set <strong>nodes=1</strong>, <strong>tasks-per-node=16</strong> and specify that we are using the <em>development</em> queue, then  submit the Slurm job which will run NorESM for <strong>1 day</strong> on <strong>1x node</strong> and <strong>16x CPUs</strong>.</p>
 <p>Monitor the execution and once the simulation has finished check the timing profile</p>
 </div>
 </div><div class="solution dropdown admonition" id="hpc-solution-1">
-<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#1Day-Betzy"><span>Solution to </span> Exercise 10</a></p>
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#1Day-Betzy"><span>Solution to </span> Exercise 9</a></p>
 <div class="section" id="solution-content">
 <p><img alt="" src="_images/Betzy_Jobx16.png" /></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sbatch job_hpc.sh
@@ -261,23 +264,23 @@ $ mkdir work archive
 <p>Short simulations do not necessarily provide the most representative performance figures therefore, for the purpose of benchmarking, longer simulations are normally performed (typically 1 month or more)</p>
 </div>
 <div class="exercise admonition" id="1Month-Betzy">
-<p class="admonition-title"><span class="caption-number">Exercise 11 </span></p>
+<p class="admonition-title"><span class="caption-number">Exercise 10 </span></p>
 <div class="section" id="exercise-content">
 <p>Edit the script to set <strong>nodes=8</strong> and <strong>tasks-per-node=128</strong>, delete the line with <strong>- - qos</strong> (in order to use the <em>normal</em> queue), change the name of the machine to <strong>‘container’</strong> and replace ‘ndays’ by <strong>‘nmonths’</strong>, then resubmit the job to get a more precise estimate of the model throughput</p>
 </div>
 </div><div class="solution dropdown admonition" id="hpc-solution-3">
-<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#1Month-Betzy"><span>Solution to </span> Exercise 11</a></p>
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#1Month-Betzy"><span>Solution to </span> Exercise 10</a></p>
 <div class="section" id="solution-content">
 <p><img alt="" src="_images/Betzy_Job_8x128.png" /></p>
 <p><img alt="" src="_images/Timing-Betzy_8x128.png" /></p>
 </div>
 </div><div class="exercise admonition" id="To_think_about">
-<p class="admonition-title"><span class="caption-number">Exercise 12 </span></p>
+<p class="admonition-title"><span class="caption-number">Exercise 11 </span></p>
 <div class="section" id="exercise-content">
-<p>To thing about: which of the 1x16 or 8x128 CPU runs provides the best <em>value-for-money</em>?</p>
+<p>To thing about: which of the 1x16 or 8x128 CPU runs provides the best <em>value-for-money</em> (as in simulated year <em>per KWh</em>)?</p>
 </div>
 </div><div class="solution dropdown admonition" id="hpc-solution-5">
-<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#To_think_about"><span>Solution to </span> Exercise 12</a></p>
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#To_think_about"><span>Solution to </span> Exercise 11</a></p>
 <div class="section" id="solution-content">
 <p>The <strong>scalability</strong> being what it is, the more tasks are involved in the computation the more time is spent in communications rather than calculations, especially when several nodes are put to work (the bandwidth and latency are generally much better within a single node than inter-nodes), and therefore the performance declines rapidly</p>
 <ul class="simple">
@@ -290,14 +293,14 @@ $ mkdir work archive
 <h2>A few words on Bit-For-Bit reproducibility<a class="headerlink" href="#a-few-words-on-bit-for-bit-reproducibility" title="Permalink to this headline">¶</a></h2>
 <p>Are NorESM simulations always identical on platforms with different hardware and software configurations?</p>
 <div class="exercise admonition" id="BFB-Reproducibility">
-<p class="admonition-title"><span class="caption-number">Exercise 13 </span></p>
+<p class="admonition-title"><span class="caption-number">Exercise 12 </span></p>
 <div class="section" id="exercise-content">
 <p>The short answer is “No!” when running on bare metal, but what happens when using a container?</p>
 <p>We already had a look at outputs from the “outside-in” and “inside-out” simulations carried out with the container on the Virtual Machine with x16 <strong>Intel® Haswell</strong> processors.</p>
 <p>How does that compare to the run on Betzy this time with x16 <strong>AMD® Rome</strong> processors?</p>
 </div>
 </div><div class="solution dropdown admonition" id="hpc-solution-7">
-<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#BFB-Reproducibility"><span>Solution to </span> Exercise 13</a></p>
+<p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#BFB-Reproducibility"><span>Solution to </span> Exercise 12</a></p>
 <div class="section" id="solution-content">
 <p>Virtual Machine 1x16 VCPUs <strong>Intel® Haswell</strong></p>
 <p><img alt="" src="_images/VMx16_log.png" /></p>
@@ -337,31 +340,22 @@ $ mkdir work archive
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="virtual_machine.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">On the Virtual Machine</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="virtual_machine.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">On the Virtual Machine</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="take_home.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Take home messages</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="take_home.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Take home messages</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
@@ -382,8 +376,7 @@ $ mkdir work archive
       </div>
     </div>
   
-  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

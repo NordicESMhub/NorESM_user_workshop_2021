@@ -23,44 +23,9 @@ The **"$"** character at the begining of each line is meant to represent the Bas
 :::
 
 
-```{exercise} 
-:label: Login
-Try to login on your Virtual Machine and let the organizers of the workshop know if that does not work
-```
-
-````{solution} Login
-:class: dropdown
-```{code-block} bash
-Key		Adresse
-Akhilesh        ---.--.--.---
-Alfatih         158.39.75.205
-Ana             158.39.75.164
-Anusha          ---.--.--.---
-Astrid          ---.--.--.---
-Dev             158.39.75.146
-Diogo           158.39.75.167
-Gaurav          158.37.63.158
-Heiko           158.39.75.148
-Homa            ---.--.--.---
-Jean            158.39.75.12
-Joeran          158.39.75.110
-Kjetil          
-Marte           158.37.63.172
-Martin          158.39.75.89
-Matvey          ---.--.--.---
-Michael         158.39.75.8
-Tarkan          158.39.75.80
-Tarkeshwar      ---.--.--.---
-Tyge            ---.--.--.---
-Yanchun 	158.39.75.200
-
-```
-````
-
-
 ### Basic verifications
 
-Verify that a container engine is available on the host
+Login on your Virtual Machine and verify that a container engine is available
 
 
 ```{exercise} 
@@ -119,15 +84,35 @@ This will add the inputdata folder on **$HOME** and will be much faster than dow
 
 ### Pull the container image and execute it
 
-Get the NorESM container 
+Get the NorESM container from Zenodo <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5652619.svg" height="25">
 
+```
+$ wget https://zenodo.org/record/5652619/files/NorESM_user_workshop_2021.sif
+```
 
-Type the following commands to **make it executable**, then start a Singularity container and run an interactive shell within it
+The download should take less than 1 minute:
+
+![](/SIF.png)
+
+Type the following commands to change the access permissions of the .sif file (i.e., to **make it executable**), then start a Singularity container and run an interactive shell within it
 
 ```{code-block}
 $ chmod ugo+rwx NorESM_user_workshop_2021.sif
+
+$ ls -l NorESM_user_workshop_2021.sif
+```
+
+![](/Perms.png)
+
+
+```{code-block}
 $ singularity shell --contain NorESM_user_workshop_2021.sif
 ```
+
+:::{note}
+Inside the container the Bash shell prompt (**Singularity>**) is different from that on the host (where, depending on the name that was given to your Virtual Machine when it was created, it will be something like **ubuntu@nuw_name:**)
+:::
+
 ```{exercise} 
 :label: Contain
 Once inside the container explore, navigate through the folders, try to create new files and/or directories, what happens?
@@ -149,7 +134,7 @@ Without this flag, by default, the **home** directory, the **current working dir
 
 ### Run the container with bindings
 
-To be able to share files and folders between the container and the host, explicit binding paths have to be specified in the format **src:dest**, where **src** and **dest** are paths outside and inside of the container, respectively
+To be able to share files and folders between the container and the host, explicit binding paths have to be specified in the format **src:dest**, where **src** and **dest** are paths outside and inside of the container, respectively, separated by a colon (:)
 
 Shared **work** and **archive** directories will allow us to access model outputs from the host, even after the container ceased to exist. Also the shared **inputdata** which was created and populated from the host can be made accessible inside the container
 
@@ -159,9 +144,6 @@ $ singularity shell --bind $HOME/work:/opt/esm/work,$HOME/inputdata:/opt/esm/inp
 
 This means for instance that the content of the directory known as **$HOME/archive** on the host can be accessed on **/opt/esm/archive** inside the container, and *vice versa*
 
-:::{note}
-Inside the container the Bash shell prompt (**Singularity>**) is different from that on the host (where, depending on the name that was given to your Virtual Machine when it was created, it will be something like **ubuntu@nuw_name:**)
-:::
 
 ### Create a new simulation, set it up, compile and run it inside the container
 
