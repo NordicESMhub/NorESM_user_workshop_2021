@@ -61,7 +61,7 @@ Edit the script to set **nodes=8** and **tasks-per-node=128**, delete the line w
 
 ```{exercise} 
 :label: To_think_about
-To thing about: which of the 1x16 or 8x128 CPU runs provides the best *value-for-money*?
+To thing about: which of the 1x16 or 8x128 CPU runs provides the best *value-for-money* (as in simulated year *per KWh*)?
 ```
 
 ````{solution} To_think_about
