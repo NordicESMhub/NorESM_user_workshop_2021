@@ -5,7 +5,7 @@
 Login on your own Virtual Machine with the **private SSH key** corresponding to the public key that you provided the Organizers of this Workshop (it does not grant you access to any other Virtual Machine anyway):
 
 ```
-$ ssh -i ~/.ssh/YourPrivateSSHkey ubuntu@aaa.bb.cc.ddd
+ssh -i ~/.ssh/YourPrivateSSHkey ubuntu@aaa.bb.cc.ddd
 ```
 
 Each Virtual Machine features 16 VCPUs + 64GB RAM + 80GB root disk, and comes with:
@@ -19,7 +19,6 @@ already installed, nothing else
 :::{note}
 Use the *actual path* to where your SSH keys are stored on your laptop (instead of *~/.ssh/*), replace *@aaa.bb.cc.ddd* by the IP address that you have been allocated, and all use the same user name (*ubuntu*)
 
-The **"$"** character at the begining of each line is meant to represent the Bash shell prompt whilst the remainder of the line is the command itself
 :::
 
 
@@ -36,8 +35,9 @@ Check which version of **Singularity** is installed on your Virtual Machine
 ````{solution} Version
 :class: dropdown
 ```{code-block} bash
-$ singularity --version
-
+singularity --version
+```
+```{code-block} bash
 singularity version 3.8.3
 ```
 ````
@@ -50,8 +50,10 @@ Check the architecture, model and number of processors available on the Virtual 
 ````{solution} CPU
 :class: dropdown
 ```{code-block} bash
-$ lscpu
+lscpu                       2294.608
+```
 
+```{code-block} bash
 Architecture:                    x86_64
 CPU(s):                          16
 Model name:                      Intel Core Processor (Haswell, no TSX)
@@ -64,20 +66,21 @@ CPU MHz:                         2294.608
 Create the work and archive folders in your **$HOME** directory
 
 ```
-$ cd $HOME
-$ mkdir work archive 
+cd $HOME
+
+mkdir work archive 
 ```
 
 Get the inputdata from Zenodo <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4683483.svg" height="25">
 
 ```
-$ wget https://zenodo.org/record/4683483/files/inputdata_NF2000climo_f19_f19_mg17.tar.gz
+wget https://zenodo.org/record/4683483/files/inputdata_NF2000climo_f19_f19_mg17.tar.gz
 ```
 
 Extract (or untar) all the files from the archive
 
 ```
-$ tar zxvf inputdata_NF2000climo_f19_f19_mg17.tar.gz
+tar zxvf inputdata_NF2000climo_f19_f19_mg17.tar.gz
 ```
 
 This will add the inputdata folder on **$HOME** and will be much faster than downloading individual files on-the-fly, hence saving us a lot of time. 
@@ -87,7 +90,7 @@ This will add the inputdata folder on **$HOME** and will be much faster than dow
 Get the NorESM container from Zenodo <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5652619.svg" height="25">
 
 ```
-$ wget https://zenodo.org/record/5652619/files/NorESM_user_workshop_2021.sif
+wget https://zenodo.org/record/5652619/files/NorESM_user_workshop_2021.sif
 ```
 
 The download should take less than 1 minute:
@@ -97,16 +100,16 @@ The download should take less than 1 minute:
 Type the following commands to change the access permissions of the .sif file (i.e., to **make it executable**), then start a Singularity container and run an interactive shell within it
 
 ```{code-block}
-$ chmod ugo+rwx NorESM_user_workshop_2021.sif
+chmod ugo+rwx NorESM_user_workshop_2021.sif
 
-$ ls -l NorESM_user_workshop_2021.sif
+ls -l NorESM_user_workshop_2021.sif
 ```
 
 ![](/Perms.png)
 
 
 ```{code-block}
-$ singularity shell --contain NorESM_user_workshop_2021.sif
+singularity shell --contain NorESM_user_workshop_2021.sif
 ```
 
 :::{note}
@@ -120,9 +123,9 @@ Once inside the container explore, navigate through the folders, try to create n
 ````{solution} Contain
 :class: dropdown
 ```{code-block} bash
-$ pwd
-$ ls -lrt /opt/esm
-$ touch text.txt
+pwd
+ls -lrt /opt/esm
+touch text.txt
 ```
 
 You should be able to create new files and new folders inside the container, without any error or warning, however these files and folders will not exist outside
@@ -139,7 +142,7 @@ To be able to share files and folders between the container and the host, explic
 Shared **work** and **archive** directories will allow us to access model outputs from the host, even after the container ceased to exist. Also the shared **inputdata** which was created and populated from the host can be made accessible inside the container
 
 ```
-$ singularity shell --bind $HOME/work:/opt/esm/work,$HOME/inputdata:/opt/esm/inputdata,$HOME/archive:/opt/esm/archive NorESM_user_workshop_2021.sif
+singularity shell --bind $HOME/work:/opt/esm/work,$HOME/inputdata:/opt/esm/inputdata,$HOME/archive:/opt/esm/archive NorESM_user_workshop_2021.sif
 ```
 
 This means for instance that the content of the directory known as **$HOME/archive** on the host can be accessed on **/opt/esm/archive** inside the container, and *vice versa*
@@ -163,21 +166,21 @@ A machine named **"virtual"** has already been configured with the correct compi
 :class: dropdown
 ```{code-block} bash
 
-$ cd /opt/esm/my_sandbox/cime/scripts/
+cd /opt/esm/my_sandbox/cime/scripts/
 
-$ ./create_newcase --case /opt/esm/archive/cases/test --compset NF2000climo --res f19_f19_mg17 --machine virtual --run-unsupported
+./create_newcase --case /opt/esm/archive/cases/test --compset NF2000climo --res f19_f19_mg17 --machine virtual --run-unsupported
 
-$ cd /opt/esm/archive/cases/test
+cd /opt/esm/archive/cases/test
 
-$ ./xmlchange STOP_N=1
-$ ./xmlchange STOP_OPTION=ndays
-$ ./xmlchange --file env_mach_pes.xml --id NTASKS --val -1
+./xmlchange STOP_N=1
+./xmlchange STOP_OPTION=ndays
+./xmlchange --file env_mach_pes.xml --id NTASKS --val -1
 
-$ ./case.setup
+./case.setup
 
-$ ./case.build
+./case.build
 
-$ ./case.submit
+./case.submit
 
 ```
 ````
@@ -201,7 +204,7 @@ You can then *if you wish* exit the container (with the **exit** command) and re
 
 To monitor your job *from outside the container* you can open a 2<sup>nd</sup> terminal and login like on the 1<sup>st</sup> one, then type the following command
 ```{code-block} bash
-$ htop
+htop
 ```
 
 ![](/htop.png)
@@ -218,13 +221,13 @@ New output files and log files are created as the model runs, so check for examp
 
 Notice how, at the begining of the run, only **finidat_interp_dest.nc** and the **lnd.log** file grow in size as the LAND component is initialized (and interpolations are being performed) 
 ```{code-block} bash
-$ ls -lrt /home/ubuntu/work/test/run
+ls -lrt /home/ubuntu/work/test/run
 ```
 ![](/Workdir.png)
 
 Verify which time steps the CAM component has completed:
 ```{code-block} bash
-$ tail /home/ubuntu/work/test/run/atm.log*
+tail /home/ubuntu/work/test/run/atm.log*
 ```
 ![](/AtmLog.png)
 
@@ -232,7 +235,7 @@ $ tail /home/ubuntu/work/test/run/atm.log*
 
 You can still use *from inside the container* the **ps axu** command to monitor the processes running on your Virtual Machine (and in particular those related to your ESM run):
 ```{code-block} bash
-$ ps axu | grep esm
+ps axu | grep esm
 ```
 ![](/PS.png)
 
@@ -250,7 +253,7 @@ Have a look at the timing profile located in the case directory
 ````{solution} Timing-test
 :class: dropdown
 ```{code-block} bash
-$ vi /home/ubuntu/archive/cases/test/timing/cesm_timing.*
+vi /home/ubuntu/archive/cases/test/timing/cesm_timing.*
 ```
 ![](/TimingTest.png)
 ````
@@ -260,9 +263,9 @@ $ vi /home/ubuntu/archive/cases/test/timing/cesm_timing.*
 Let’s now do the same simulation in a more automated way using the bash script called **"job_vm.sh"** which comes in the container (and can be extracted from **/opt/esm**)
 
 ```{code-block} bash
-$ cd /home/ubuntu
+cd /home/ubuntu
 
-$ singularity exec NorESM_user_workshop_2021.sif cp /opt/esm/job_vm.sh .
+singularity exec NorESM_user_workshop_2021.sif cp /opt/esm/job_vm.sh .
 ```
 
 For the sake of convenience this bash script follows the same structure as the Slurm job batch script which will be used on Betzy
@@ -272,7 +275,7 @@ This will export several environmental variables (number of nodes, CPUs, etc.), 
 Submit the job on the Virtual Machine by typing the following command:
 
 ```{code-block} bash
-$ bash job_vm.sh
+bash job_vm.sh
 ```
 This time we use the sequence **mpirun singularity ... esm.exe** (instead of **singularity mpirun ... esm.exe**)
 
@@ -283,7 +286,7 @@ Monitor this run, and at the end compare the timing profile to the one obtained 
 ````{solution} Timing-VM
 :class: dropdown
 ```{code-block} bash
-$ vi /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19.999999-999999
+vi /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19.999999-999999
 ```
 ![](/Timing-VM.png)
 
@@ -297,9 +300,9 @@ Can you spot any difference between the outputs of the simulations performed fro
 ````{solution} Differences
 :class: dropdown
 ```{code-block} bash
-$ cd /home/ubuntu
-$ gunzip archive/test/logs/atm.log.*
-$ diff work/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_*/run/atm.log.* archive/test/logs/atm.log.*
+cd /home/ubuntu
+gunzip archive/test/logs/atm.log.*
+diff work/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_*/run/atm.log.* archive/test/logs/atm.log.*
 
 ```
 ![](/ATM-LOG.png)
