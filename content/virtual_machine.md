@@ -120,7 +120,7 @@ Inside the container the Bash shell prompt (**Singularity>**) is different from 
 :label: Contain
 Once inside the container explore, navigate through the folders, try to create new files in the home directory (**/home/ubuntu**), for instance create a file called **text.txt** with some text in it, what happens?
 
-Now exit the container try to see whether the **text.txt** file is accessible on the host
+Now exit the container and try to see whether the **text.txt** file is accessible on the host
 
 ```
 
@@ -130,13 +130,14 @@ Now exit the container try to see whether the **text.txt** file is accessible on
 
 ```{code-block} bash
 pwd
-ls -lrt /opt/esm
-touch text.txt
+vi text.txt
+ls
 ```
 
 
 ```{code-block} bash
 exit
+ls 
 ```
 
 You should be able to create new files and new folders inside the container, without any error or warning, however these files and folders will not exist outside
