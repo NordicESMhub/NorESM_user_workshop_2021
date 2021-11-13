@@ -290,7 +290,13 @@ Submit the job on the Virtual Machine by typing the following command:
 ```{code-block} bash
 bash job_vm.sh
 ```
-This time we use the sequence **mpirun singularity ... esm.exe** (instead of **singularity mpirun ... esm.exe**)
+This time we use the sequence 
+
+**mpirun singularity ... esm.exe** 
+
+instead of 
+
+**singularity mpirun ... esm.exe**
 
 ```{exercise} 
 :label: Timing-VM
