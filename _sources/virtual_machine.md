@@ -118,7 +118,7 @@ Inside the container the Bash shell prompt (**Singularity>**) is different from 
 
 ```{exercise} 
 :label: Contain
-Once inside the container explore, navigate through the folders, try to create new files in the home directory (**/home/ubuntu**), for instance create a file called **text.txt** with some text in it, what happens?
+Once inside the container explore, navigate through the folders, try to create new files in the home directory (**/home/ubuntu**), for instance create a file called **text.txt**, what happens?
 
 Now exit the container and try to see whether the **text.txt** file is accessible on the host
 
@@ -130,10 +130,9 @@ Now exit the container and try to see whether the **text.txt** file is accessibl
 
 ```{code-block} bash
 pwd
-vi text.txt
+touch text.txt
 ls
 ```
-
 
 ```{code-block} bash
 exit
@@ -216,7 +215,7 @@ You can then *if you wish* exit the container (with the **exit** command) and re
 
 ### Monitor your run
 
-To monitor your job *from outside the container* you can open a 2<sup>nd</sup> terminal and login like on the 1<sup>st</sup> one, then type the following command
+To monitor your job *from outside the container* while it is still running you can open a **2<sup>nd</sup> terminal** and login like on the 1<sup>st</sup> one, then type the following command
 ```{code-block} bash
 htop
 ```
@@ -262,12 +261,12 @@ After the end of the simulation it is possible to obtain general information abo
 
 ```{exercise} 
 :label: Timing-test
-Have a look at the timing profile located in the case directory
+Have a look at the timing profile located in the case directory **from outside the container**
 ```
 ````{solution} Timing-test
 :class: dropdown
 ```{code-block} bash
-vi /home/ubuntu/archive/cases/test/timing/cesm_timing.*
+cat /home/ubuntu/archive/cases/test/timing/cesm_timing.*
 ```
 ![](/TimingTest.png)
 ````
@@ -300,7 +299,7 @@ Monitor this run, and at the end compare the timing profile to the one obtained 
 ````{solution} Timing-VM
 :class: dropdown
 ```{code-block} bash
-vi /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19.999999-999999
+cat /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19.999999-999999
 ```
 ![](/Timing-VM.png)
 

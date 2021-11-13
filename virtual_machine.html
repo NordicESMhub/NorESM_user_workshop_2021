@@ -369,14 +369,14 @@ mkdir work archive
 <div class="exercise admonition" id="Contain">
 <p class="admonition-title"><span class="caption-number">Exercise 3 </span></p>
 <div class="section" id="exercise-content">
-<p>Once inside the container explore, navigate through the folders, try to create new files in the home directory (<strong>/home/ubuntu</strong>), for instance create a file called <strong>text.txt</strong> with some text in it, what happens?</p>
+<p>Once inside the container explore, navigate through the folders, try to create new files in the home directory (<strong>/home/ubuntu</strong>), for instance create a file called <strong>text.txt</strong>, what happens?</p>
 <p>Now exit the container and try to see whether the <strong>text.txt</strong> file is accessible on the host</p>
 </div>
 </div><div class="solution dropdown admonition" id="virtual_machine-solution-5">
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Contain"><span>Solution to </span> Exercise 3</a></p>
 <div class="section" id="solution-content">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">pwd</span>
-vi text.txt
+touch text.txt
 ls
 </pre></div>
 </div>
@@ -448,7 +448,7 @@ ls
 </div>
 <div class="section" id="monitor-your-run">
 <h3>Monitor your run<a class="headerlink" href="#monitor-your-run" title="Permalink to this headline">¶</a></h3>
-<p>To monitor your job <em>from outside the container</em> you can open a 2<sup>nd</sup> terminal and login like on the 1<sup>st</sup> one, then type the following command</p>
+<p>To monitor your job <em>from outside the container</em> while it is still running you can open a <strong>2<sup>nd</sup> terminal</strong> and login like on the 1<sup>st</sup> one, then type the following command</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>htop
 </pre></div>
 </div>
@@ -487,12 +487,12 @@ ls
 <div class="exercise admonition" id="Timing-test">
 <p class="admonition-title"><span class="caption-number">Exercise 6 </span></p>
 <div class="section" id="exercise-content">
-<p>Have a look at the timing profile located in the case directory</p>
+<p>Have a look at the timing profile located in the case directory <strong>from outside the container</strong></p>
 </div>
 </div><div class="solution dropdown admonition" id="virtual_machine-solution-11">
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Timing-test"><span>Solution to </span> Exercise 6</a></p>
 <div class="section" id="solution-content">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi /home/ubuntu/archive/cases/test/timing/cesm_timing.*
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat /home/ubuntu/archive/cases/test/timing/cesm_timing.*
 </pre></div>
 </div>
 <p><img alt="" src="_images/TimingTest.png" /></p>
@@ -522,7 +522,7 @@ singularity <span class="nb">exec</span> NorESM_user_workshop_2021.sif cp /opt/e
 </div><div class="solution dropdown admonition" id="virtual_machine-solution-13">
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Timing-VM"><span>Solution to </span> Exercise 7</a></p>
 <div class="section" id="solution-content">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19.999999-999999
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19.999999-999999
 </pre></div>
 </div>
 <p><img alt="" src="_images/Timing-VM.png" /></p>
