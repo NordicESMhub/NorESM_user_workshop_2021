@@ -231,16 +231,27 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="on-betzy">
 <h1>On Betzy<a class="headerlink" href="#on-betzy" title="Permalink to this headline">¶</a></h1>
 <p>Login on Betzy with your usual Sigma2 <em>username</em> (i.e., you are not <em>ubuntu</em> any more), and proceed like on the Virtual Machine but use <strong>/cluster/work/users/$USER</strong> (which is equivalent to <strong>$USERWORK</strong>) instead of <strong>/home/ubuntu</strong> for staging and job data:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ssh -i ~/.ssh/YourPrivateSSHkey YourSigma2UserName@betzy.sigma2.no
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ssh YourSigma2UserName@betzy.sigma2.no
 cd $USERWORK
-mkdir work archive
+mkdir -p work archive
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All the necessary inputdata being already available on <strong>/cluster/shared/noresm/inputdata</strong> there is no need to download the Zenodo tarball when you are on Betzy (or Fram)</p>
 </div>
-<p>Pull the same container image as on the Virtual Machine, <strong>make it executable</strong>, and extract this time the Slurm batch job script <strong>job_hpc.sh</strong></p>
+<p>Pull the same container image as on the Virtual Machine</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">zenodo</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">record</span><span class="o">/</span><span class="mi">5652619</span><span class="o">/</span><span class="n">files</span><span class="o">/</span><span class="n">NorESM_user_workshop_2021</span><span class="o">.</span><span class="n">sif</span>
+</pre></div>
+</div>
+<p><strong>make it executable</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="n">ugo</span><span class="o">+</span><span class="n">rwx</span> <span class="n">NorESM_user_workshop_2021</span><span class="o">.</span><span class="n">sif</span>
+</pre></div>
+</div>
+<p>and extract this time the Slurm batch job script <strong>job_hpc.sh</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity <span class="nb">exec</span> NorESM_user_workshop_2021.sif cp /opt/esm/job_hpc.sh .
+</pre></div>
+</div>
 <p>On many systems it is common to use an alternative launcher to start parallel applications, for instance Slurm’s <strong>srun</strong> rather than the <strong>mpirun</strong> <em>wrapper</em> provided by a particular MPI installation (as we did on the Virtual Machine for the “outside-in” exercise)</p>
 <p>This approach is supported with Singularity as long as the MPI version installed in the container supports the same Process Management Interface (PMI) and version as that used by the launcher (which is the case with our container)</p>
 <p>In the frame of this workshop we are therefore going to use <strong>srun</strong> for automatically distributing the processes to precisely the resources allocated to the job, without loading any module with MPI</p>
