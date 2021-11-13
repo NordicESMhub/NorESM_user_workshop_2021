@@ -370,17 +370,18 @@ mkdir work archive
 <p class="admonition-title"><span class="caption-number">Exercise 3 </span></p>
 <div class="section" id="exercise-content">
 <p>Once inside the container explore, navigate through the folders, try to create new files in the home directory (<strong>/home/ubuntu</strong>), for instance create a file called <strong>text.txt</strong> with some text in it, what happens?</p>
-<p>Now exit the container try to see whether the <strong>text.txt</strong> file is accessible on the host</p>
+<p>Now exit the container and try to see whether the <strong>text.txt</strong> file is accessible on the host</p>
 </div>
 </div><div class="solution dropdown admonition" id="virtual_machine-solution-5">
 <p class="admonition-title"><span class="caption-number"></span><a class="reference internal" href="#Contain"><span>Solution to </span> Exercise 3</a></p>
 <div class="section" id="solution-content">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">pwd</span>
-ls -lrt /opt/esm
-touch text.txt
+vi text.txt
+ls
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">exit</span>
+ls 
 </pre></div>
 </div>
 <p>You should be able to create new files and new folders inside the container, without any error or warning, however these files and folders will not exist outside</p>
