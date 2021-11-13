@@ -305,7 +305,7 @@ Monitor this run, and at the end compare the timing profile to the one obtained 
 ````{solution} Timing-VM
 :class: dropdown
 ```{code-block} bash
-cat /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_2021-10-19.999999-999999
+cat /home/ubuntu/archive/cases/singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_*/timing/cesm_timing.singularity_1x16_NF2000climo_f19_f19_mg17_1_ndays_*.999999-999999
 ```
 ![](/Timing-VM.png)
 
